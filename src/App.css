@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+.nav-link:hover{color:#279D9F !important}
+.cta-dark:hover{background:#1B7274 !important}
+.store-btn:hover{background:#EEF1F0 !important}
+.cta-teal:hover{background:#16B3A6 !important}
+.cta-outline:hover{background:#F4F6F5 !important}
+.footer-link:hover{color:#fff !important}
+
+.tab-btn{border:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;padding:11px 20px;border-radius:999px;cursor:pointer;transition:all .2s}
+.tab-btn.active{background:#0E1A24;color:#fff;border:0}
+.tab-btn.inactive{background:#fff;color:#33454F;border:1px solid #E4E8E7}
+.tab-btn.inactive:hover{background:#F4F6F5}
+
+.seg-btn{border:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;padding:9px 18px;border-radius:999px;cursor:pointer;transition:all .2s}
+.seg-btn.active{background:#0E1A24;color:#fff}
+.seg-btn.inactive{background:transparent;color:#6B7B84}
+.seg-btn.inactive:hover{color:#33454F}
+
+.mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.mobile-menu-btn span{display:block;width:24px;height:2px;background:#0E1A24;margin:5px 0;transition:.3s}
+.nav-links{display:flex;gap:28px;align-items:center}
+
+@media(max-width:900px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(238,241,240,.98);backdrop-filter:blur(14px);flex-direction:column;padding:20px 24px;gap:16px;border-bottom:1px solid #E4E8E7}
+  .nav-links.open{display:flex}
+  .mobile-menu-btn{display:block}
+  .hero-grid{grid-template-columns:1fr !important;text-align:center}
+  .hero-grid h1{font-size:42px !important}
+  .hero-phone{order:-1}
+  .hero-buttons{justify-content:center}
+  .steps-grid{grid-template-columns:repeat(2,1fr) !important}
+  .features-grid{grid-template-columns:1fr !important}
+  .features-grid .span-2{grid-column:span 1 !important}
+  .built-for-grid{grid-template-columns:1fr !important}
+  .stories-grid{grid-template-columns:1fr !important}
+  .compare-grid{overflow-x:auto}
+  .stats-grid{grid-template-columns:repeat(2,1fr) !important}
+  .pricing-grid{grid-template-columns:1fr !important}
+  .pricing-grid .pro-card{transform:none !important}
+  .get-grid{grid-template-columns:1fr !important;text-align:center}
+  .get-grid .get-buttons{justify-content:center}
+  .footer-inner{flex-direction:column;text-align:center}
+  .scoresheet-grid{grid-template-columns:repeat(2,1fr) !important}
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media(max-width:600px){
+  .steps-grid{grid-template-columns:1fr !important}
+  .stats-grid{grid-template-columns:1fr !important}
+  .scoresheet-grid{grid-template-columns:1fr !important}
+  .hero-grid h1{font-size:32px !important}
 }

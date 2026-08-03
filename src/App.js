@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import HowItWorks from './components/HowItWorks';
+import Features from './components/Features';
+import BuiltFor from './components/BuiltFor';
+import Stories from './components/Stories';
+import Scoresheets from './components/Scoresheets';
+import Comparison from './components/Comparison';
+import SocialProof from './components/SocialProof';
+import Pricing from './components/Pricing';
+import FAQ from './components/FAQ';
+import GetTheApp from './components/GetTheApp';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ overflowX: 'hidden' }}>
+      <Navbar />
+      <Hero />
+      <HowItWorks />
+      <Features />
+      <BuiltFor />
+      <Stories />
+      <Scoresheets />
+      <Comparison />
+      <SocialProof />
+      <Pricing />
+      <FAQ />
+      <GetTheApp />
+      <Footer />
     </div>
   );
 }
