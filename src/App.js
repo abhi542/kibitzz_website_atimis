@@ -1,35 +1,20 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import HowItWorks from './components/HowItWorks';
-import Features from './components/Features';
-import BuiltFor from './components/BuiltFor';
-import Stories from './components/Stories';
-import Scoresheets from './components/Scoresheets';
-import Comparison from './components/Comparison';
-import SocialProof from './components/SocialProof';
-import Pricing from './components/Pricing';
-import FAQ from './components/FAQ';
-import GetTheApp from './components/GetTheApp';
-import Footer from './components/Footer';
+import Home from './pages/Home';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 function App() {
   return (
-    <div style={{ overflowX: 'hidden' }}>
-      <Navbar />
-      <Hero />
-      <HowItWorks />
-      <Features />
-      <BuiltFor />
-      <Stories />
-      <Scoresheets />
-      <Comparison />
-      <SocialProof />
-      <Pricing />
-      <FAQ />
-      <GetTheApp />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div style={{ overflowX: 'hidden' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
