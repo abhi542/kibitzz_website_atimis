@@ -30,14 +30,14 @@ export default function Comparison() {
       </div>
 
       <div className="compare-grid" style={{background:'#fff',border:'1px solid #E4E8E7',borderRadius:20,overflow:'hidden',boxShadow:'0 4px 14px rgba(14,26,36,.05)'}}>
-        <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',background:'#0E1A24',color:'#fff',minWidth:600}}>
+        <div className="compare-row compare-header" style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',background:'#0E1A24',color:'#fff'}}>
           <div style={{padding:'18px 24px',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15}}>Feature</div>
           <div style={{padding:'18px 14px',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:15,textAlign:'center',color:'#7FE0DE'}}>Kibitzz</div>
           <div style={{padding:'18px 14px',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,textAlign:'center',color:'#AEBCC4'}}>Chess.com</div>
           <div style={{padding:'18px 14px',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,textAlign:'center',color:'#AEBCC4'}}>Lichess</div>
         </div>
         {rows.map((r, i) => (
-          <div key={i} style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',borderTop:'1px solid #E4E8E7',minWidth:600}}>
+          <div key={i} className="compare-row" style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',borderTop:'1px solid #E4E8E7'}}>
             <div style={{padding:'18px 24px',fontSize:16,color:'#33454F'}}>{r.feature}</div>
             <Cell val={r.kibitzz} highlight />
             <Cell val={r.chess} />
