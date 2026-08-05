@@ -40,7 +40,8 @@
   .features-grid .span-2{grid-column:span 1 !important}
   .built-for-grid{grid-template-columns:1fr !important}
   .stories-grid{grid-template-columns:1fr !important}
-  .compare-grid{overflow-x:auto}
+  .compare-row{grid-template-columns:1.8fr 1fr 1fr 1fr !important}
+  .compare-row>div{padding:14px 8px !important;font-size:13px !important}
   .pricing-grid{grid-template-columns:1fr !important}
   .get-grid{grid-template-columns:1fr !important;text-align:center}
   .get-grid .get-buttons{justify-content:center}

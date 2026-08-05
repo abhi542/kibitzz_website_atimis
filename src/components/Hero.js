@@ -25,7 +25,7 @@ export default function Hero() {
               </span>
             </a>
             <a href="#get" className="store-btn" style={{display:'flex',alignItems:'center',gap:12,background:'#fff',color:'#0E1A24',padding:'16px 26px',borderRadius:14,fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16}}>
-              <span style={{fontSize:22}}>&#9654;</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3.61 1.814A1.82 1.82 0 003 3.293v17.414a1.82 1.82 0 00.61 1.479l.078.066 9.767-9.767v-.23L3.688 1.749l-.078.065z" fill="#4285F4"/><path d="M16.711 15.74l-3.256-3.255v-.23l3.256-3.256.073.042 3.86 2.193c1.102.626 1.102 1.65 0 2.276l-3.86 2.193-.073.037z" fill="#FBBC04"/><path d="M16.784 15.703L13.455 12.37 3.61 22.186c.363.385.964.432 1.636.048l11.538-6.531z" fill="#EA4335"/><path d="M16.784 8.999L5.246 2.466C4.574 2.082 3.973 2.13 3.61 2.514L13.455 12.37l3.329-3.371z" fill="#34A853"/></svg>
               <span style={{display:'flex',flexDirection:'column',lineHeight:1.1,textAlign:'left'}}>
                 <small style={{fontSize:12,fontWeight:600,color:'#6B7B84',letterSpacing:'.04em'}}>Get it on</small>Google Play
               </span>
