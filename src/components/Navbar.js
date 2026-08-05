@@ -25,7 +25,7 @@ export default function Navbar() {
             {/* <a href="/#pricing" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Pricing</a> */}
             <a href="/#support" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Support</a>
           </div>
-          <a href="/#get" className="cta-dark" style={{background:'#0E1A24',color:'#fff',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:'12px 24px',borderRadius:12,boxShadow:'0 4px 14px rgba(14,26,36,.2)'}}>
+          <a href="/#get" className="cta-dark nav-cta" style={{background:'#0E1A24',color:'#fff',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:'12px 24px',borderRadius:12,boxShadow:'0 4px 14px rgba(14,26,36,.2)'}}>
             Get the app
           </a>
         </div>

@@ -19,7 +19,7 @@ export default function Hero() {
           </p>
           <div className="hero-buttons" style={{display:'flex',gap:16,flexWrap:'wrap',marginBottom:24}}>
             <a href="#get" className="store-btn" style={{display:'flex',alignItems:'center',gap:12,background:'#fff',color:'#0E1A24',padding:'16px 26px',borderRadius:14,fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16}}>
-              <span style={{fontSize:24}}>&#xF8FF;</span>
+              <span style={{fontSize:20}}>&#xF8FF;</span>
               <span style={{display:'flex',flexDirection:'column',lineHeight:1.1,textAlign:'left'}}>
                 <small style={{fontSize:12,fontWeight:600,color:'#6B7B84',letterSpacing:'.04em'}}>Download on the</small>App Store
               </span>
