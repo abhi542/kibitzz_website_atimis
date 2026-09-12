@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import appLogo from '../assets/app-logo.png';
+import appLogo from '../assets/kibitzz_logo.png';
 import homeScreen from '../assets/home-screen.png';
 
 export default function GetTheApp() {
