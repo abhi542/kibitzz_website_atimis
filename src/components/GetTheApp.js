@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
 import homeScreen from '../assets/home-screen.png';
 
@@ -16,16 +17,16 @@ export default function GetTheApp() {
           </p>
           <div className="get-buttons" style={{display:'flex',gap:18,flexWrap:'wrap'}}>
             <div style={{background:'#0B141A',border:'1px solid rgba(255,255,255,.1)',borderRadius:20,padding:'24px 28px',width:240}}>
-              <div style={{marginBottom:12}}><span style={{fontSize:34}}>&#xF8FF;</span></div>
+              <div style={{fontSize:34,marginBottom:12}}>&#xF8FF;</div>
               <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:18,marginBottom:5}}>iOS</div>
               <div style={{fontSize:14,color:'#8A99A1',marginBottom:18}}>iOS 15 or later</div>
-              <a href="#get" style={{display:'block',textAlign:'center',background:'#fff',color:'#0E1A24',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:13,borderRadius:12}}>App Store</a>
+              <Link to="/coming-soon" style={{display:'block',textAlign:'center',background:'#fff',color:'#0E1A24',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:13,borderRadius:12,textDecoration:'none'}}>App Store</Link>
             </div>
             <div style={{background:'#0B141A',border:'1px solid rgba(255,255,255,.1)',borderRadius:20,padding:'24px 28px',width:240}}>
               <div style={{marginBottom:12}}><svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M3.61 1.814A1.82 1.82 0 003 3.293v17.414a1.82 1.82 0 00.61 1.479l.078.066 9.767-9.767v-.23L3.688 1.749l-.078.065z" fill="#4285F4"/><path d="M16.711 15.74l-3.256-3.255v-.23l3.256-3.256.073.042 3.86 2.193c1.102.626 1.102 1.65 0 2.276l-3.86 2.193-.073.037z" fill="#FBBC04"/><path d="M16.784 15.703L13.455 12.37 3.61 22.186c.363.385.964.432 1.636.048l11.538-6.531z" fill="#EA4335"/><path d="M16.784 8.999L5.246 2.466C4.574 2.082 3.973 2.13 3.61 2.514L13.455 12.37l3.329-3.371z" fill="#34A853"/></svg></div>
               <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:18,marginBottom:5}}>Android</div>
               <div style={{fontSize:14,color:'#8A99A1',marginBottom:18}}>Android 9 or later</div>
-              <a href="#get" style={{display:'block',textAlign:'center',background:'#fff',color:'#0E1A24',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:13,borderRadius:12}}>Google Play</a>
+              <a href="https://play.google.com/store/apps/details?id=com.chesslens.chess_scan&hl=en" target="_blank" rel="noopener noreferrer" style={{display:'block',textAlign:'center',background:'#fff',color:'#0E1A24',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:15,padding:13,borderRadius:12}}>Google Play</a>
             </div>
           </div>
         </div>
