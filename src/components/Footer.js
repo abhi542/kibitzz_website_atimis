@@ -18,9 +18,11 @@ export default function Footer() {
           <a href="/#support" className="footer-link" style={{color:'#8A99A1'}}>Support</a>
           <a href="mailto:contact@kibitzz.in" className="footer-link" style={{color:'#8A99A1'}}>Contact</a>
         </div>
-        <div style={{fontSize:14,color:'#5E6E76',width:'100%',borderTop:'1px solid rgba(255,255,255,.06)',paddingTop:24,display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:14}}>
+        <div style={{fontSize:14,color:'#5E6E76',width:'100%',borderTop:'1px solid rgba(255,255,255,.06)',paddingTop:24,display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:14,alignItems:'center'}}>
           <span>&copy; 2026 Kibitzz &middot; Scan &middot; Review &middot; Improve</span>
-          <span style={{display:'flex',gap:20}}>
+          <span style={{display:'flex',alignItems:'center',gap:18}}>
+            <span>Built by <a href="https://www.atimis.in/" target="_blank" rel="noopener noreferrer" style={{color:'#7FE0DE',fontWeight:600,textDecoration:'none',transition:'opacity .2s'}} onMouseOver={(e)=>e.currentTarget.style.opacity='0.8'} onMouseOut={(e)=>e.currentTarget.style.opacity='1'}>ATIMIS</a></span>
+            <span style={{color:'rgba(255,255,255,.15)'}}>&middot;</span>
             <Link to="/privacy" className="footer-link" style={{color:'#5E6E76'}}>Privacy</Link>
             <Link to="/terms" className="footer-link" style={{color:'#5E6E76'}}>Terms</Link>
           </span>
