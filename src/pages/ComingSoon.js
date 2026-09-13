@@ -5,11 +5,40 @@ import kibitzLogo from '../assets/kibitzz_logo-removebg.png';
 export default function ComingSoon() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleNotify = (e) => {
+  const handleNotify = async (e) => {
     e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
+    if (!email || loading) return;
+
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitted(true);
+        setSuccessMsg(data.message || "You're on the list");
+      } else {
+        setErrorMsg(data.error || 'Failed to join waitlist. Please try again.');
+      }
+    } catch (err) {
+      console.error('Waitlist submission error:', err);
+      setErrorMsg('Something went wrong. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -86,7 +115,8 @@ export default function ComingSoon() {
           transition: all .3s;
           white-space: nowrap;
         }
-        .cs-submit-btn:hover { background: rgba(127,224,222,.1); border-color: #7FE0DE; }
+        .cs-submit-btn:hover:not(:disabled) { background: rgba(127,224,222,.1); border-color: #7FE0DE; }
+        .cs-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .back-link {
           color: rgba(127,224,222,.4);
           text-decoration: none;
@@ -134,26 +164,36 @@ export default function ComingSoon() {
 
         {/* GET NOTIFIED + form */}
         <div style={{animation:'fade-in .8s ease-out .5s both',marginBottom:40}}>
-          <div className="cs-get-notified" style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:2000,fontSize:16,letterSpacing:'.25em',textTransform:'uppercase',color:'rgba(127,224,222,.6)',marginBottom:20}}>
+          <div className="cs-get-notified" style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16,letterSpacing:'.25em',textTransform:'uppercase',color:'rgba(127,224,222,.6)',marginBottom:20}}>
             Get Notified
           </div>
 
           {!submitted ? (
-            <form onSubmit={handleNotify} className="cs-form" style={{display:'flex',gap:0,justifyContent:'center'}}>
-              <input
-                type="email"
-                className="cs-notify-input"
-                placeholder="Enter your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="cs-submit-btn">Submit Email</button>
-            </form>
+            <div>
+              <form onSubmit={handleNotify} className="cs-form" style={{display:'flex',gap:0,justifyContent:'center'}}>
+                <input
+                  type="email"
+                  className="cs-notify-input"
+                  placeholder="Enter your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  required
+                />
+                <button type="submit" className="cs-submit-btn" disabled={loading}>
+                  {loading ? 'Submitting...' : 'Submit Email'}
+                </button>
+              </form>
+              {errorMsg && (
+                <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontSize:13,color:'#FF6B6B',marginTop:12}}>
+                  {errorMsg}
+                </div>
+              )}
+            </div>
           ) : (
             <div style={{animation:'fade-in .5s ease-out both',textAlign:'center'}}>
               <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:600,fontSize:15,color:'#7FE0DE',letterSpacing:'.15em',textTransform:'uppercase'}}>
-                You're on the list
+                {successMsg || "You're on the list"}
               </div>
               <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:400,fontSize:13,color:'rgba(127,224,222,.5)',letterSpacing:'.06em',marginTop:8}}>
                 We'll notify you when it's live on the App Store
