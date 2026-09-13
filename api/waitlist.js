@@ -47,16 +47,25 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { email } = req.body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {}
+    }
+
+    const email = body ? body.email : null;
 
     if (!email || !isValidEmail(email)) {
       return res.status(400).json({ success: false, error: 'Please enter a valid email address.' });
     }
 
     const { db } = await connectToDatabase();
-    const collection = db.collection('ios_wait_list');
+    // Default to 'kibitzz' database if not specified in URI
+    const targetDb = db.databaseName && db.databaseName !== 'test' ? db : db.client.db('kibitzz');
+    const collection = targetDb.collection('ios_wait_list');
 
-    const cleanEmail = email.trim().toLowerCase();
+    const cleanEmail = String(email).trim().toLowerCase();
 
     // Ensure unique index on email
     await collection.createIndex({ email: 1 }, { unique: true }).catch(() => { });
@@ -86,7 +95,8 @@ module.exports = async function handler(req, res) {
     console.error('Waitlist API Error:', error);
     return res.status(500).json({
       success: false,
-      error: 'Failed to process waitlist request. Please try again later.'
+      error: error.message || 'Failed to process waitlist request. Please try again later.',
+      details: String(error)
     });
   }
 };
