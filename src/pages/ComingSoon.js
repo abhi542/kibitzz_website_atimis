@@ -42,7 +42,7 @@ export default function ComingSoon() {
   };
 
   return (
-    <div style={{minHeight:'100vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',position:'relative',overflow:'hidden',background:'#1a3a3a'}}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: '#1a3a3a' }}>
       <style>{`
         .cs-checks {
           position: absolute; inset: 0;
@@ -142,35 +142,35 @@ export default function ComingSoon() {
       <div className="cs-checks" />
 
       {/* Background glow behind logo */}
-      <div style={{position:'absolute',top:'42%',left:'50%',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle, rgba(39,157,159,.5) 0%, rgba(39,157,159,.15) 40%, transparent 70%)',transform:'translate(-50%,-50%)',animation:'glow-pulse 4s ease-in-out infinite',pointerEvents:'none'}} />
-      <div style={{position:'absolute',top:'42%',left:'50%',width:360,height:360,borderRadius:'50%',border:'1px solid rgba(127,224,222,.15)',transform:'translate(-50%,-50%)',animation:'glow-ring 4s ease-in-out infinite',pointerEvents:'none'}} />
-      <div style={{position:'absolute',top:'42%',left:'50%',width:440,height:440,borderRadius:'50%',border:'1px solid rgba(127,224,222,.08)',transform:'translate(-50%,-50%)',animation:'glow-ring 4s ease-in-out infinite .5s',pointerEvents:'none'}} />
+      <div style={{ position: 'absolute', top: '42%', left: '50%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(39,157,159,.5) 0%, rgba(39,157,159,.15) 40%, transparent 70%)', transform: 'translate(-50%,-50%)', animation: 'glow-pulse 4s ease-in-out infinite', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '42%', left: '50%', width: 360, height: 360, borderRadius: '50%', border: '1px solid rgba(127,224,222,.15)', transform: 'translate(-50%,-50%)', animation: 'glow-ring 4s ease-in-out infinite', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '42%', left: '50%', width: 440, height: 440, borderRadius: '50%', border: '1px solid rgba(127,224,222,.08)', transform: 'translate(-50%,-50%)', animation: 'glow-ring 4s ease-in-out infinite .5s', pointerEvents: 'none' }} />
 
       {/* Subtle ambient glow */}
-      <div style={{position:'absolute',bottom:'-10%',left:'50%',width:'100%',height:200,background:'radial-gradient(ellipse at center, rgba(39,157,159,.15) 0%, transparent 70%)',transform:'translateX(-50%)',pointerEvents:'none'}} />
+      <div style={{ position: 'absolute', bottom: '-10%', left: '50%', width: '100%', height: 200, background: 'radial-gradient(ellipse at center, rgba(39,157,159,.15) 0%, transparent 70%)', transform: 'translateX(-50%)', pointerEvents: 'none' }} />
 
       {/* Content */}
-      <div style={{position:'relative',textAlign:'center',padding:'40px 32px',display:'flex',flexDirection:'column',alignItems:'center',gap:0}}>
+      <div style={{ position: 'relative', textAlign: 'center', padding: '40px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
 
         {/* COMING SOON title */}
-        <div style={{marginBottom:48}}>
+        <div style={{ marginBottom: 48 }}>
           <span className="cs-title">Coming Soon</span>
         </div>
 
         {/* Floating logo with glow */}
-        <div style={{animation:'float-logo 5s ease-in-out infinite, fade-in .8s ease-out both',marginBottom:80}}>
-          <img src={kibitzLogo} alt="Kibitzz" className="cs-logo-img" style={{width:260,maxWidth:'65vw',filter:'drop-shadow(0 0 60px rgba(39,157,159,.5)) drop-shadow(0 0 120px rgba(39,157,159,.25))'}} />
+        <div style={{ animation: 'float-logo 5s ease-in-out infinite, fade-in .8s ease-out both', marginBottom: 80 }}>
+          <img src={kibitzLogo} alt="Kibitzz" className="cs-logo-img" style={{ width: 260, maxWidth: '65vw', filter: 'drop-shadow(0 0 60px rgba(39,157,159,.5)) drop-shadow(0 0 120px rgba(39,157,159,.25))' }} />
         </div>
 
         {/* GET NOTIFIED + form */}
-        <div style={{animation:'fade-in .8s ease-out .5s both',marginBottom:40}}>
-          <div className="cs-get-notified" style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16,letterSpacing:'.25em',textTransform:'uppercase',color:'rgba(127,224,222,.6)',marginBottom:20}}>
+        <div style={{ animation: 'fade-in .8s ease-out .5s both', marginBottom: 40 }}>
+          <div className="cs-get-notified" style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: '.25em', textTransform: 'uppercase', color: 'rgba(127,224,222,.6)', marginBottom: 20 }}>
             Get Notified
           </div>
 
           {!submitted ? (
             <div>
-              <form onSubmit={handleNotify} className="cs-form" style={{display:'flex',gap:0,justifyContent:'center'}}>
+              <form onSubmit={handleNotify} className="cs-form" style={{ display: 'flex', gap: 0, justifyContent: 'center' }}>
                 <input
                   type="email"
                   className="cs-notify-input"
@@ -185,26 +185,26 @@ export default function ComingSoon() {
                 </button>
               </form>
               {errorMsg && (
-                <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontSize:13,color:'#FF6B6B',marginTop:12}}>
+                <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: 13, color: '#FF6B6B', marginTop: 12 }}>
                   {errorMsg}
                 </div>
               )}
             </div>
           ) : (
-            <div style={{animation:'fade-in .5s ease-out both',textAlign:'center'}}>
-              <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:600,fontSize:15,color:'#7FE0DE',letterSpacing:'.15em',textTransform:'uppercase'}}>
-                {successMsg || "You're on the list"}
+            <div style={{ animation: 'fade-in .5s ease-out both', textAlign: 'center' }}>
+              <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: 16, color: '#7FE0DE', letterSpacing: '.15em', textTransform: 'uppercase' }}>
+                {successMsg || "You're on the list!"}
               </div>
-              <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:400,fontSize:13,color:'rgba(127,224,222,.5)',letterSpacing:'.06em',marginTop:8}}>
-                We'll notify you when it's live on the App Store
+              <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 400, fontSize: 13, color: 'rgba(127,224,222,.5)', letterSpacing: '.06em', marginTop: 8 }}>
+                We'll notify you when the app is live on the App Store for iOS.
               </div>
             </div>
           )}
         </div>
 
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20,animation:'fade-in .8s ease-out .7s both'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, animation: 'fade-in .8s ease-out .7s both' }}>
           <Link to="/" className="back-link">Back to Home</Link>
-          <span style={{color:'rgba(127,224,222,.25)'}}>·</span>
+          <span style={{ color: 'rgba(127,224,222,.25)' }}>·</span>
           <a href="https://play.google.com/store/apps/details?id=com.chesslens.chess_scan&hl=en" target="_blank" rel="noopener noreferrer" className="back-link">Get it on Google Play</a>
         </div>
       </div>

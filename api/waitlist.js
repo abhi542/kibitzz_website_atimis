@@ -88,8 +88,8 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({
       success: true,
       message: isNew
-        ? "You're on the list! We'll notify you when the app is live on iOS."
-        : "You are already registered on the waitlist!"
+        ? "You're on the list!"
+        : "You are already on the waitlist!"
     });
   } catch (error) {
     console.error('Waitlist API Error:', error);
