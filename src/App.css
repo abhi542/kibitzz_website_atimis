@@ -33,8 +33,7 @@
   .nav-cta{display:none !important}
   .hero-grid{grid-template-columns:1fr !important;text-align:center}
   .hero-grid h1{font-size:48px !important}
-  .hero-phone{order:-1}
-  .hero-phone img{width:260px !important}
+  .hero-phone video{width:260px !important}
   .hero-buttons{justify-content:center}
   .steps-grid{grid-template-columns:repeat(2,1fr) !important}
   .features-grid{grid-template-columns:1fr !important}
@@ -46,6 +45,7 @@
   .pricing-grid{grid-template-columns:1fr !important}
   .get-grid{grid-template-columns:1fr !important;text-align:center}
   .get-grid .get-buttons{justify-content:center}
+  .get-platform-icon{justify-content:center}
   .footer-inner{flex-direction:column;text-align:center}
   .scoresheet-grid{grid-template-columns:repeat(2,1fr) !important}
 }
@@ -55,6 +55,6 @@
   .stats-grid{grid-template-columns:1fr !important}
   .scoresheet-grid{grid-template-columns:1fr !important}
   .hero-grid h1{font-size:36px !important}
-  .hero-phone img{width:220px !important}
+  .hero-phone video{width:220px !important}
   .cta-dark{font-size:12px !important;padding:9px 14px !important}
 }
