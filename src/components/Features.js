@@ -43,7 +43,7 @@ export default function Features() {
               </svg>
             </div>
             <h3 style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:26,marginBottom:12,color:'#fff',position:'relative'}}>AI-powered game insights</h3>
-            <p style={{fontSize:17,color:'#AEBCC4',maxWidth:440,position:'relative',lineHeight:1.6}}>Understand the turning points in your game with simple, in-depth explanations instead of raw engine evaluations.</p>
+            <p style={{fontSize:17,color:'#AEBCC4',maxWidth:440,position:'relative',lineHeight:1.6}}>Understand the turning points in your game with simple, in-depth analysis instead of raw engine evaluations.</p>
           </div>
 
           {/* OCR — wide teal */}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import homeScreen from '../assets/home-screen.png';
+import motionGraphic from '../assets/kibitzz-motion-graphic.mp4';
 
 export default function Hero() {
   return (
@@ -34,7 +34,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-phone" style={{display:'flex',justifyContent:'center',animation:'floaty 6s ease-in-out infinite'}}>
-          <img src={homeScreen} alt="Kibitzz home screen" style={{width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
+          <video src={motionGraphic} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
         </div>
       </div>
     </section>
