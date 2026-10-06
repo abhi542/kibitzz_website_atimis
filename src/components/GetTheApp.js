@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import appLogo from '../assets/kibitzz_logo.png';
-import motionGraphic from '../assets/kibitzz-motion-graphic.mp4';
+import appPreview from '../assets/app-preview.webp';
 
 export default function GetTheApp() {
   return (
@@ -31,7 +31,7 @@ export default function GetTheApp() {
           </div>
         </div>
         <div style={{display:'flex',justifyContent:'center'}}>
-          <video src={motionGraphic} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
+          <img src={appPreview} alt="Kibitzz app home screen with weekly games, average accuracy and a Scan new game button" width="320" height="695" loading="lazy" decoding="async" style={{width:320,maxWidth:'100%',height:'auto',display:'block',borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
         </div>
       </div>
     </section>

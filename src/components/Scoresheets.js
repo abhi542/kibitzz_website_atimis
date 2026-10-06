@@ -1,6 +1,6 @@
 import cleanImg from '../assets/clean-handwriting.jpeg';
 import messyImg from '../assets/messy-handwriting.jpeg';
-import stylesImg from '../assets/different-scoresheet-style.png';
+import stylesImg from '../assets/different-scoresheet-style.jpg';
 import penImg from '../assets/different-pen-color.jpeg';
 
 const sheets = [
@@ -23,7 +23,7 @@ export default function Scoresheets() {
           {sheets.map((s, i) => (
             <div key={i}>
               <div style={{width:'100%',aspectRatio:'3/4',borderRadius:16,overflow:'hidden',border:'1px solid #E4E8E7',marginBottom:14,background:'#F4F6F5'}}>
-                <img src={s.img} alt={s.label} style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
+                <img src={s.img} alt={s.label} loading="lazy" decoding="async" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
               </div>
               <div style={{textAlign:'center',fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16}}>{s.label}</div>
             </div>

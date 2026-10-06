@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import motionGraphic from '../assets/kibitzz-motion-graphic.mp4';
+import heroPoster from '../assets/hero-poster.webp';
 
 export default function Hero() {
   return (
@@ -34,7 +35,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-phone" style={{display:'flex',justifyContent:'center',animation:'floaty 6s ease-in-out infinite'}}>
-          <video src={motionGraphic} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
+          <video src={motionGraphic} poster={heroPoster} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{aspectRatio:'976 / 2120',width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
         </div>
       </div>
     </section>
