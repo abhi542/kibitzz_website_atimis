@@ -79,6 +79,7 @@ const { renderToString } = require('react-dom/server');
 const { StaticRouter } = require('react-router');
 const { AppRoutes } = require(path.join(SRC, 'App.js'));
 const { faqs } = require(path.join(SRC, 'components', 'FAQ.js'));
+const { articles, LEARN_UPDATED } = require(path.join(SRC, 'content', 'learn.js'));
 
 // ---------------------------------------------------------------------------
 // Per-route head data
@@ -108,6 +109,72 @@ const ROUTES = [
     noindex: true,
   },
 ];
+
+// Content pages: /demo, the /learn hub and one page per article in src/content/learn.js.
+const breadcrumbLd = (crumbs) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: SITE + c.path,
+  })),
+});
+
+const publisher = { '@type': 'Organization', name: 'Kibitzz', url: SITE + '/', logo: { '@type': 'ImageObject', url: SITE + '/logo512.png' } };
+
+ROUTES.push(
+  {
+    path: '/demo',
+    title: 'Kibitzz Demo — See a Chess Scoresheet Scan and Analysis',
+    description:
+      'See how Kibitzz turns a photo of a handwritten chess scoresheet into a validated, playable game with Stockfish analysis and a plain-English explanation of the critical moments.',
+    jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Demo', path: '/demo' }])],
+  },
+  {
+    path: '/learn',
+    title: 'Learn — Chess Scoresheet, PGN and Game Analysis Guides | Kibitzz',
+    description:
+      'Practical guides on digitizing handwritten chess scoresheets, converting them to PGN, chess OCR and analyzing your games to improve.',
+    jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }])],
+  }
+);
+
+articles.forEach((a) => {
+  const articlePath = '/learn/' + a.slug;
+  ROUTES.push({
+    path: articlePath,
+    title: a.metaTitle,
+    description: a.description,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: a.title,
+        description: a.description,
+        datePublished: LEARN_UPDATED,
+        dateModified: LEARN_UPDATED,
+        author: { '@type': 'Organization', name: 'Kibitzz', url: SITE + '/' },
+        publisher,
+        image: SITE + '/og-image.png',
+        mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + articlePath },
+      },
+      breadcrumbLd([
+        { name: 'Home', path: '/' },
+        { name: 'Learn', path: '/learn' },
+        { name: a.title, path: articlePath },
+      ]),
+    ],
+  });
+});
+
+// Every indexable page must be listed in public/sitemap.xml, so none gets forgotten.
+const sitemapXml = fs.readFileSync(path.join(ROOT, 'public', 'sitemap.xml'), 'utf8');
+ROUTES.filter((r) => !r.noindex).forEach((r) => {
+  const loc = SITE + (r.path === '/' ? '/' : r.path);
+  if (!sitemapXml.includes('<loc>' + loc + '</loc>')) fail('public/sitemap.xml is missing ' + loc);
+});
 
 const escAttr = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -182,7 +249,10 @@ for (const route of ROUTES) {
   // Organization / WebSite / MobileApplication data belongs on the home page only.
   const ldBlock = /<script type="application\/ld\+json">[\s\S]*?<\/script>/;
   html = route.home ? html : html.replace(ldBlock, '');
-  const extraHead = (route.home ? faqJsonLd() : '') + (route.noindex ? '<meta name="robots" content="noindex,follow"/>' : '');
+  const jsonLdTags = (route.jsonLd || [])
+    .map((d) => '<script type="application/ld+json">' + JSON.stringify(d).replace(/</g, '\\u003c') + '</script>')
+    .join('');
+  const extraHead = (route.home ? faqJsonLd() : '') + jsonLdTags + (route.noindex ? '<meta name="robots" content="noindex,follow"/>' : '');
   if (extraHead) html = html.replace('</head>', () => extraHead + '</head>');
 
   // The page is real HTML now, so the "enable JavaScript" fallback would just duplicate it.
