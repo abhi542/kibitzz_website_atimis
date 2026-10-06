@@ -17,7 +17,7 @@ export default function Hero() {
             Turn handwritten<br/>chess scoresheets<br/>into <span style={{color:'#F5A623'}}>meaningful</span><br/>learning.
           </h1>
           <p style={{fontSize:21,color:'#AEBCC4',maxWidth:560,marginBottom:38,lineHeight:1.6}}>
-            Kibitzz scans your handwritten scoresheet, reconstructs the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.
+            Kibitzz scans your handwritten chess scoresheet, reconstructs the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.
           </p>
           <div className="hero-buttons" style={{display:'flex',gap:16,flexWrap:'wrap',marginBottom:24}}>
             <Link to="/coming-soon" className="store-btn" style={{display:'flex',alignItems:'center',gap:12,background:'#fff',color:'#0E1A24',padding:'16px 26px',borderRadius:14,fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16,textDecoration:'none'}}>
