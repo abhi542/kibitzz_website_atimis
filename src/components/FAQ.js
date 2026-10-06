@@ -1,4 +1,4 @@
-const faqs = [
+export const faqs = [
   { q: 'What can Kibitzz read?', a: 'Any standard handwritten scoresheet, plus photo uploads and PGN files. It handles messy tournament notation and validates each move so errors get caught, not carried forward.' },
   { q: 'How long does a scan take?', a: 'A typical 40-move game goes from photo to playable, engine-checked game in about 8 seconds.' },
   { q: 'Does it work offline?', a: "You can capture scoresheets offline and they'll queue up. Digitization and engine analysis run once you're back online." },

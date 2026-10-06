@@ -1,6 +1,6 @@
 {
   "short_name": "Kibitzz",
-  "name": "Kibitzz",
+  "name": "Kibitzz \u2014 Chess Scoresheet Scanner",
   "icons": [
     {
       "src": "favicon.png",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0E1A24",
+  "background_color": "#0E1A24",
+  "description": "Scan a handwritten chess scoresheet, get a Stockfish-checked game and a plain-English review."
 }

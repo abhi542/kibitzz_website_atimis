@@ -1,0 +1,22 @@
+# Kibitzz
+
+> Kibitzz is a chess scoresheet scanner and game coach app. You photograph a handwritten chess scoresheet; Kibitzz reconstructs the game move by move, validates every move against the rules, analyzes it with the Stockfish engine, and explains the critical moments in plain English. A typical 40-move game goes from photo to playable, engine-checked game in about 8 seconds.
+
+Kibitzz is built by ATIMIS (https://www.atimis.in/). Contact: contact@kibitzz.in
+
+## Key facts
+
+- What it reads: standard handwritten scoresheets, photo uploads and PGN files, including messy tournament notation.
+- What you get: a playable game, Stockfish analysis with critical moments and player accuracy, and a plain-English summary of where the game changed, what was missed and how to improve.
+- Export: PGN export so digitized games can be opened in any engine or chess database.
+- Offline: scoresheets can be captured offline and queue up; digitization and engine analysis run once the device is back online.
+- Privacy: games are stored securely, synced only to the user's account and never sold; users can export or delete them.
+- Platforms: Android (Google Play, Android 9 or later). iOS (iOS 15 or later) is listed as coming soon.
+- Who it is for: tournament and club players, improving players, and coaches and clubs.
+
+## Pages
+
+- [Home — what Kibitzz does, how it works, features, FAQ](https://kibitzz.in/): overview of the app and answers to common questions.
+- [Get it on Google Play](https://play.google.com/store/apps/details?id=com.chesslens.chess_scan): Android download.
+- [Privacy Policy](https://kibitzz.in/privacy): how data is collected, used and protected.
+- [Terms of Service](https://kibitzz.in/terms): terms for using the service.

@@ -3,20 +3,87 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0E1A24" />
+
+    <title>Kibitzz — Chess Scoresheet Scanner &amp; Game Coach App</title>
     <meta name="description" content="Kibitzz turns a handwritten chess scoresheet into a playable, engine-checked game in about 8 seconds — then explains, in plain English, exactly where the game slipped away." />
-    <meta name="keywords" content="chess scoresheet scanner, chess OCR, chess game analysis, chess coach app, PGN from scoresheet, chess improvement" />
+    <link rel="canonical" href="https://kibitzz.in/" />
+
+    <meta property="og:site_name" content="Kibitzz" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibitzz.in/" />
     <meta property="og:title" content="Kibitzz — Turn handwritten games into meaningful learning" />
     <meta property="og:description" content="Scan your handwritten scoresheet, get it analyzed with Stockfish, and read a plain-English explanation of the critical moments." />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://kibitzz.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kibitzz — scan a handwritten chess scoresheet and get a plain-English game review" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kibitzz — Turn handwritten games into meaningful learning" />
+    <meta name="twitter:description" content="Scan your handwritten scoresheet, get it analyzed with Stockfish, and read a plain-English explanation of the critical moments." />
+    <meta name="twitter:image" content="https://kibitzz.in/og-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Kibitzz — Scan your chess scoresheet, get a coach in seconds</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://kibitzz.in/#organization",
+          "name": "Kibitzz",
+          "url": "https://kibitzz.in/",
+          "logo": "https://kibitzz.in/logo512.png",
+          "email": "contact@kibitzz.in",
+          "parentOrganization": { "@type": "Organization", "name": "ATIMIS", "url": "https://www.atimis.in/" }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://kibitzz.in/#website",
+          "url": "https://kibitzz.in/",
+          "name": "Kibitzz",
+          "description": "Chess scoresheet scanner and game coach: scan a handwritten scoresheet, get a Stockfish-checked game and a plain-English review.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://kibitzz.in/#organization" }
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://kibitzz.in/#app",
+          "name": "Kibitzz",
+          "alternateName": "Kibitzz chess scoresheet scanner",
+          "description": "Kibitzz scans a handwritten chess scoresheet, reconstructs and validates the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.",
+          "url": "https://kibitzz.in/",
+          "image": "https://kibitzz.in/og-image.png",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Android 9 or later",
+          "downloadUrl": "https://play.google.com/store/apps/details?id=com.chesslens.chess_scan",
+          "installUrl": "https://play.google.com/store/apps/details?id=com.chesslens.chess_scan",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://kibitzz.in/#organization" },
+          "featureList": [
+            "Scan handwritten chess scoresheets with a phone camera",
+            "Rebuild the game move by move with every move validated against the rules",
+            "Stockfish engine analysis with critical moments and player accuracy",
+            "Plain-English explanation of where the game changed and how to improve",
+            "PGN export",
+            "Offline capture with analysis once back online"
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <h1>Kibitzz — chess scoresheet scanner and game coach</h1>
+      <p>Kibitzz turns a handwritten chess scoresheet into a playable, engine-checked game in about 8 seconds, analyzes it with Stockfish, and explains the critical moments in plain English. Enable JavaScript to view the full site, or email contact@kibitzz.in.</p>
+    </noscript>
     <div id="root"></div>
   </body>
 </html>
