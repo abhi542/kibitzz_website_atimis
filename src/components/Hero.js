@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import motionGraphic from '../assets/kibitzz-motion-graphic.mp4';
+import heroPoster from '../assets/hero-poster.webp';
 
 export default function Hero() {
   return (
@@ -12,11 +13,11 @@ export default function Hero() {
           <div style={{display:'inline-flex',alignItems:'center',gap:9,background:'rgba(39,157,159,.16)',border:'1px solid rgba(39,157,159,.35)',color:'#7FE0DE',fontWeight:700,fontSize:13,letterSpacing:'.16em',textTransform:'uppercase',padding:'8px 16px',borderRadius:999,marginBottom:28}}>
             Scan · Review · Improve
           </div>
-          <h1 style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:72,lineHeight:1.03,letterSpacing:'-.03em',marginBottom:26}}>
-            Turn handwritten<br/>games into <span style={{color:'#F5A623'}}>meaningful</span><br/>learning.
+          <h1 style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:64,lineHeight:1.05,letterSpacing:'-.03em',marginBottom:26}}>
+            Turn handwritten<br/>chess scoresheets<br/>into <span style={{color:'#F5A623'}}>meaningful</span><br/>learning.
           </h1>
           <p style={{fontSize:21,color:'#AEBCC4',maxWidth:560,marginBottom:38,lineHeight:1.6}}>
-            Kibitzz scans your handwritten scoresheet, reconstructs the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.
+            Kibitzz scans your handwritten chess scoresheet, reconstructs the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.
           </p>
           <div className="hero-buttons" style={{display:'flex',gap:16,flexWrap:'wrap',marginBottom:24}}>
             <Link to="/coming-soon" className="store-btn" style={{display:'flex',alignItems:'center',gap:12,background:'#fff',color:'#0E1A24',padding:'16px 26px',borderRadius:14,fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:700,fontSize:16,textDecoration:'none'}}>
@@ -34,7 +35,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-phone" style={{display:'flex',justifyContent:'center',animation:'floaty 6s ease-in-out infinite'}}>
-          <video src={motionGraphic} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
+          <video src={motionGraphic} poster={heroPoster} autoPlay loop muted playsInline aria-label="Kibitzz app in motion" role="img" style={{aspectRatio:'976 / 2120',width:320,borderRadius:34,boxShadow:'0 30px 70px rgba(0,0,0,.5)'}} />
         </div>
       </div>
     </section>

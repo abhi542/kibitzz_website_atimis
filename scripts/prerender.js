@@ -172,10 +172,10 @@ for (const route of ROUTES) {
 
   html = replaceOnce(html, /<title>[\s\S]*?<\/title>/, '<title>' + escText(route.title) + '</title>', '<title>');
   html = setMeta(html, 'name', 'description', route.description);
-  html = setMeta(html, 'property', 'og:title', route.home ? 'Kibitzz — Turn handwritten games into meaningful learning' : route.title);
+  html = setMeta(html, 'property', 'og:title', route.home ? 'Kibitzz — Turn handwritten chess scoresheets into meaningful learning' : route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
   html = setMeta(html, 'property', 'og:url', url);
-  html = setMeta(html, 'name', 'twitter:title', route.home ? 'Kibitzz — Turn handwritten games into meaningful learning' : route.title);
+  html = setMeta(html, 'name', 'twitter:title', route.home ? 'Kibitzz — Turn handwritten chess scoresheets into meaningful learning' : route.title);
   html = setMeta(html, 'name', 'twitter:description', route.description);
   html = replaceOnce(html, /<link\b[^>]*rel=["']?canonical["']?[^>]*>/, '<link rel="canonical" href="' + url + '"/>', 'canonical link');
 
