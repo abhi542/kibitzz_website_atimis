@@ -13,8 +13,8 @@ export default function Hero() {
           <div style={{display:'inline-flex',alignItems:'center',gap:9,background:'rgba(39,157,159,.16)',border:'1px solid rgba(39,157,159,.35)',color:'#7FE0DE',fontWeight:700,fontSize:13,letterSpacing:'.16em',textTransform:'uppercase',padding:'8px 16px',borderRadius:999,marginBottom:28}}>
             Scan · Review · Improve
           </div>
-          <h1 style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:72,lineHeight:1.03,letterSpacing:'-.03em',marginBottom:26}}>
-            Turn handwritten<br/>games into <span style={{color:'#F5A623'}}>meaningful</span><br/>learning.
+          <h1 style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:64,lineHeight:1.05,letterSpacing:'-.03em',marginBottom:26}}>
+            Turn handwritten<br/>chess scoresheets<br/>into <span style={{color:'#F5A623'}}>meaningful</span><br/>learning.
           </h1>
           <p style={{fontSize:21,color:'#AEBCC4',maxWidth:560,marginBottom:38,lineHeight:1.6}}>
             Kibitzz scans your handwritten scoresheet, reconstructs the game move by move, analyzes it with Stockfish, and explains the critical moments in plain English.
