@@ -9,13 +9,21 @@ const p = {fontSize:18,color:'#33454F',lineHeight:1.75,marginBottom:18};
 const li = {fontSize:18,color:'#33454F',lineHeight:1.7,marginBottom:10};
 const list = {listStylePosition:'outside',paddingLeft:26,marginBottom:20};
 
+// [[word]] -> teal, bold, brand-font highlight. Everything else stays plain text.
+const highlight = {fontFamily:heading,fontWeight:800,color:'#1B7274'};
+function Inline({ text }) {
+  return text.split(/\[\[(.+?)\]\]/g).map((part, i) =>
+    i % 2 === 1 ? <strong key={i} style={highlight}>{part}</strong> : part
+  );
+}
+
 function Block({ item }) {
-  if (typeof item === 'string') return <p style={p}>{item}</p>;
+  if (typeof item === 'string') return <p style={p}><Inline text={item} /></p>;
   if (Array.isArray(item)) {
-    return <ul style={list}>{item.map((t, i) => <li key={i} style={li}>{t}</li>)}</ul>;
+    return <ul style={list}>{item.map((t, i) => <li key={i} style={li}><Inline text={t} /></li>)}</ul>;
   }
   if (item.ol) {
-    return <ol style={list}>{item.ol.map((t, i) => <li key={i} style={li}>{t}</li>)}</ol>;
+    return <ol style={list}>{item.ol.map((t, i) => <li key={i} style={li}><Inline text={t} /></li>)}</ol>;
   }
   if (item.code) {
     return (

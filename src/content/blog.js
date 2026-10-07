@@ -5,32 +5,33 @@
 //
 // Body items: a string is a paragraph; an array is a bullet list;
 // { ol: [...] } is a numbered list; { code: "..." } is a code block.
+// Inside any text, [[word]] renders as a teal bold brand highlight.
 
 const posts = [
   {
     slug: 'how-to-digitize-a-chess-scoresheet',
     published: '2026-10-06',
     title: 'How to digitize a chess scoresheet',
-    metaTitle: 'How to Digitize a Chess Scoresheet (3 Ways) — Kibitzz',
+    metaTitle: 'How to Digitize a Chess Scoresheet (2 Ways) — Kibitzz',
     description:
-      'Three ways to turn a handwritten chess scoresheet into a digital game you can replay and analyze: typing it in, a scanning app, or a hybrid. Steps, tips and trade-offs.',
-    blurb: 'Three ways to get a handwritten game onto your phone or computer, and which one fits you.',
+      'Two ways to turn a handwritten chess scoresheet into a digital game you can replay and analyze: typing it in, or using a scanning app. Steps, tips and trade-offs.',
+    blurb: 'Two ways to get a handwritten game onto your phone or computer, and which one fits you.',
     answer:
-      'To digitize a chess scoresheet, you either re-enter the moves by hand into a chess board or database, or photograph the sheet and let a scanner app read the handwriting for you. Either way, the goal is a PGN file or a playable game you can replay and run through an engine.',
+      'To digitize a chess scoresheet, you either photograph/upload it on the Kibitzz app and let it read the handwriting for you, or re-enter the moves by hand into the chess board. Either way, the goal is a playable game or a PGN file you can replay and run through the engine.',
     sections: [
       {
         h: 'Why digitize your scoresheets at all?',
         body: [
-          'A paper scoresheet records what happened but cannot be replayed, searched or analyzed. Once a game is digital you can step through it move by move, ask an engine where the evaluation changed, and keep a searchable collection of every tournament game you have played.',
-          'Most improvement comes from reviewing your own games, and reviewing is only practical when the game is already on a screen. The sooner you digitize after a tournament, the more of the game you still remember.',
+          'A paper scoresheet records what happened but cannot be replayed, searched or analyzed. Once a game is digital you can step through it move by move, ask the engine where the evaluation changed, and keep a searchable collection of every tournament game you have played.',
+          'Most improvement comes from reviewing your own games, and reviewing is only practical when the game is already on a screen. The sooner you digitize after a tournament, the better your chances of figuring out what went wrong.',
         ],
       },
       {
-        h: 'Method 1: type the moves in yourself',
+        h: 'Method 1: Type the moves in yourself',
         body: [
-          'The traditional approach is to open a chess board or database program, set up the starting position and enter each move from the sheet. Most programs flag a move that is not legal in the current position, which makes this a good way to catch a misread character.',
+          'The traditional approach is to open a chess board, set up the starting position and enter each move from the sheet. Most boards flag a move that is not legal in the current position, which makes this a good way to catch a misread move.',
           { ol: [
-            'Open an analysis board or chess database and start a new game.',
+            'Open a chess board and start a new game.',
             'Enter the moves in order, one at a time, from the scoresheet.',
             'If a move is rejected as illegal, re-read the sheet: you have usually mistaken a symbol or skipped a move.',
             'Fill in the player names, event, date and result.',
@@ -40,16 +41,16 @@ const posts = [
         ],
       },
       {
-        h: 'Method 2: photograph it and use a scanner app',
+        h: 'Method 2: Photograph it and use a scanner app',
         body: [
           'A scoresheet scanner reads the handwriting from a photo and rebuilds the game for you. The better ones do more than read characters: they check each reading against the rules of chess, so a smudged move that could only be one legal move is corrected automatically.',
           { ol: [
             'Place the sheet flat on a table with even lighting and no shadow across it.',
             'Photograph the whole sheet from directly above, with all move columns in frame.',
-            'Let the app read it, then step through the reconstructed game and fix any move it flagged.',
+            'Let the app read it, then step through the reconstructed game and fix any move it misread as illegal.',
             'Export or analyze the finished game.',
           ] },
-          'Kibitzz works this way: you photograph the handwritten sheet, it reconstructs the game move by move, validates every move against the rules and runs Stockfish analysis. For a typical 40-move game that takes about 8 seconds from photo to playable game.',
+          '[[Kibitzz]] works this way: you photograph the handwritten sheet, it reconstructs the game move by move, validates every move against the rules and runs Stockfish analysis. For a typical 40-move game that takes about 8 seconds from photo to playable game.',
         ],
       },
       {
