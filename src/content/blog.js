@@ -326,7 +326,6 @@ const posts = [
           'The exact cutoffs differ from site to site, so the same move can get a different label in different programs:',
           [
             'Chess.com\'s Game Review measures expected points lost: roughly 0.05 to 0.10 for an inaccuracy, 0.10 to 0.20 for a mistake and 0.20 or more for a blunder.',
-            'Lichess measures the change in winning chances: about 10% for an inaccuracy, 20% for a mistake and 30% for a blunder.',
           ],
           'These thresholds are the sites\' own and can change over time, so treat the numbers as a guide to how the labels work, not as a rulebook.',
         ],
@@ -372,7 +371,7 @@ const posts = [
         h: 'How do you use the labels to improve?',
         body: [
           'Count your blunders, mistakes and misses across several games and sort them: tactical oversight, wrong plan, opening gap or time pressure. The biggest group is what to practice first. Many players find that cutting blunders and converting misses raises results faster than learning new openings.',
-          'Kibitzz flags blunders, mistakes and brilliant moves from its Stockfish analysis, gives each player an accuracy score, and explains in plain English what changed at the critical moments of the game.',
+          '[[Kibitzz]] flags blunders, mistakes and brilliant moves from its Stockfish analysis, gives each player an accuracy score, and explains in plain English what changed at the critical moments of the game.',
         ],
       },
     ],
