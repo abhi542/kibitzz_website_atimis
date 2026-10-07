@@ -54,7 +54,7 @@ const posts = [
         ],
       },
       {
-        h: 'Tips that make any method more accurate',
+        h: 'Tips that make these methods more accurate',
         body: [
           [
             'Write clearly during the game. Distinguish b from 6, and 1 from l, because those are the most common sources of misreads.',
@@ -128,8 +128,7 @@ const posts = [
       {
         h: 'Converting a scoresheet to PGN automatically',
         body: [
-          'A scoresheet scanner skips the typing. You photograph the handwritten sheet and the app reads the moves, rebuilds the game, validates every move against the rules of chess and gives you a game you can export as PGN. Kibitzz supports PGN export, so the digitized game opens in any engine or chess database.',
-          'Validation matters because handwriting is ambiguous. When a character could be read two ways, only one reading is usually a legal move, and that is the one the scanner should choose.',
+          'A scoresheet scanner, such as [[Kibitzz]] skips the typing. You photograph the handwritten sheet and the app reads the moves, rebuilds the game, validates every move against the rules of chess and gives you a game you can export as PGN. [[Kibitzz]] supports PGN export, so the digitized game opens in any engine or chess database.',
         ],
       },
     ],
@@ -150,12 +149,12 @@ const posts = [
       {
         h: 'How is chess OCR different from ordinary OCR?',
         body: [
-          'General OCR tries to read any text. Chess notation is a tiny, strict language: piece letters (K, Q, R, B, N), files a to h, ranks 1 to 8, and a few symbols such as x, +, # and O-O. Knowing that vocabulary lets a chess-specific reader reject impossible readings. A character that looks like a 9 cannot be a rank, so it is probably a 4 or a g.',
+          'General OCR tries to read any text. Chess notation is a tiny, strict language: piece letters (K, Q, R, B, N), files a to h, ranks 1 to 8, and a few symbols such as x, +, # and O-O. Knowing that vocabulary lets a chess-specific reader reject impossible readings. A character that looks like a 9 cannot be a rank, so it is probably either a 4 or a g.',
           'The bigger advantage is that chess has rules. Every move must be legal in the position it was played from, so a reader that tracks the board while it reads can resolve doubtful handwriting by asking which reading is a legal move.',
         ],
       },
       {
-        h: 'How does it read a scoresheet?',
+        h: 'How does the engine read a scoresheet?',
         body: [
           { ol: [
             'Find the sheet in the photo and straighten it.',
@@ -207,26 +206,26 @@ const posts = [
       'To analyze a chess game, replay it, note where you felt unsure, then use an engine to find the moments where the evaluation changed most. Work out why each mistake happened, and look for patterns across many games so you know what to train.',
     sections: [
       {
-        h: 'Step 1: get the game onto a board',
+        h: 'Step 1: Get the game onto a board',
         body: [
-          'You cannot analyze a game on paper. Enter or scan the moves so you can replay them. If you played over the board, see our guide to digitizing a chess scoresheet. If you played online, the game is already saved for you.',
+          'You cannot analyze a game on paper. Enter or scan the moves so you can replay them. If you played over the board, see our guide to digitizing a chess scoresheet. If you played online, the game is already saved for you, simply export it as PGN and upload it into [[Kibitzz]].',
         ],
       },
       {
-        h: 'Step 2: review the game before turning on the engine',
+        h: 'Step 2: Review the game before turning on the engine',
         body: [
           'Replay the game yourself first and write down what you thought at the key moments: where you were uncertain, where you felt you were better, and where the game turned. This step is the most valuable one, because it shows you how you think, and an engine cannot tell you that.',
         ],
       },
       {
-        h: 'Step 3: run an engine and find the critical moments',
+        h: 'Step 3: Run the analysis engine and find the critical moments',
         body: [
-          'Now check your notes against an engine such as Stockfish. Do not read every line. Look for the moves where the evaluation swings sharply, because those are the critical moments where the game was won or lost.',
+          'Now check your notes against the engine analysis. Do not read every line. Look for the moves where the evaluation swings sharply, because those are the critical moments where the game was won or lost.',
           'An evaluation of +1.0 roughly means White is ahead by the equivalent of a pawn. What matters is the change from one move to the next, and whether the engine move was something you could realistically have found.',
         ],
       },
       {
-        h: 'Step 4: find out why you erred',
+        h: 'Step 4: Find out why you erred',
         body: [
           'For each critical moment, decide which kind of error it was. The cause tells you what to practice.',
           [
@@ -239,16 +238,16 @@ const posts = [
         ],
       },
       {
-        h: 'Step 5: look for patterns, not single games',
+        h: 'Step 5: Look for patterns, not single games',
         body: [
-          'One game shows one mistake. Ten games show what you keep doing. If most of your swings are tactical oversights, drill tactics. If they cluster in the opening, fix your repertoire. Keep a running list of your error types and check it after every tournament.',
+          'One game shows one mistake. Ten games show what you keep doing. The [[Kibitzz]] Insights page gives you exactly this. If most of your swings are tactical oversights, drill tactics. If they cluster in the opening, fix your repertoire. Visit the Insights page to track your common errors after every game.',
         ],
       },
       {
-        h: 'Step 6: turn the findings into practice',
+        h: 'Step 6: Turn the findings into practice',
         body: [
           'End each review by writing one or two concrete things to work on, such as a tactical motif you missed or an endgame to study, and then practice those specifically. Analysis only pays off when it changes what you train.',
-          'Kibitzz is built around this loop. After it digitizes your scoresheet and runs Stockfish, it highlights the critical moments and explains in plain English what changed, what was missed and what to improve.',
+          '[[Kibitzz]] is built around this loop. After it digitizes your scoresheet and runs Stockfish, it highlights the critical moments and explains in plain English what changed, what was missed and what to improve.',
         ],
       },
     ],
@@ -302,7 +301,7 @@ const posts = [
         h: 'For coaches and clubs',
         body: [
           'Coaches reviewing several students face the same bottleneck at larger scale: a stack of paper sheets. Digitizing them quickly lets you open each game, see the engine\'s critical moments, and spend your time discussing ideas instead of copying notation. Keeping every student\'s games in one digital collection also makes it easy to track progress from one tournament to the next.',
-          'Kibitzz is designed for this use: tournament and club players, improving players, and coaches and clubs can scan a sheet and get a playable, engine-checked game with a plain-English summary of the critical moments.',
+          '[[Kibitzz]] is designed for this use: tournament and club players, improving players, and coaches and clubs can scan a sheet and get a playable, engine-checked game with a plain-English summary of the critical moments.',
         ],
       },
     ],
@@ -312,50 +311,68 @@ const posts = [
   {
     slug: 'chess-blunders-mistakes-inaccuracies',
     published: '2026-10-06',
-    title: 'Chess blunders, mistakes and inaccuracies explained',
-    metaTitle: 'Blunder vs Mistake vs Inaccuracy in Chess Explained — Kibitzz',
+    title: 'Chess blunders, mistakes, misses and inaccuracies explained',
+    metaTitle: 'Chess Blunder vs Mistake vs Miss Explained — Kibitzz',
     description:
-      'What the labels blunder, mistake and inaccuracy mean in chess analysis, how engines decide them, and how to use them to find what to practice.',
-    blurb: 'What the move labels in engine analysis mean, and how to use them to improve.',
+      'What blunder, mistake, miss and inaccuracy mean in chess game analysis, how Chess.com and Lichess decide each label, and how to use them to find what to practice.',
+    blurb: 'What the move labels in game analysis really mean, and how to use them to improve.',
     answer:
-      'In engine analysis, an inaccuracy is a small slip, a mistake is a clearly worse move, and a blunder is a move that throws away a large part of your advantage or loses material or the game. The labels come from how much a move changes the engine\'s evaluation.',
+      'Game analysis labels each move by how much it hurt your position: an inaccuracy is a small slip, a mistake is a clearly worse move, a miss is failing to punish your opponent\'s error, and a blunder throws away a large part of your advantage or loses material or the game. The labels come from how much a move changes the engine\'s evaluation.',
     sections: [
       {
-        h: 'How engines decide the labels',
+        h: 'How do tools decide the labels?',
         body: [
-          'An engine such as Stockfish gives every position an evaluation. After you play a move, it compares the new evaluation with what the best move would have given. The bigger the drop, the more serious the label. Engine evaluations are often shown in centipawns, where 100 centipawns is roughly the value of a pawn.',
-          'There is no single universal cutoff. Different tools set their own thresholds, and some measure the drop in winning chances instead of centipawns, so the same move can be labeled differently in different programs.',
+          'An engine such as Stockfish evaluates the position before and after every move. The tool converts those evaluations into your chances of winning and compares what you played with the best move. The bigger the drop, the more serious the label.',
+          'The exact cutoffs differ from site to site, so the same move can get a different label in different programs:',
+          [
+            'Chess.com\'s Game Review measures expected points lost: roughly 0.05 to 0.10 for an inaccuracy, 0.10 to 0.20 for a mistake and 0.20 or more for a blunder.',
+            'Lichess measures the change in winning chances: about 10% for an inaccuracy, 20% for a mistake and 30% for a blunder.',
+          ],
+          'These thresholds are the sites\' own and can change over time, so treat the numbers as a guide to how the labels work, not as a rulebook.',
         ],
       },
       {
-        h: 'Inaccuracy',
+        h: 'What is an inaccuracy in chess?',
         body: [
-          'An inaccuracy is a move that is playable but not best. It gives up a little of your advantage, or lets the opponent equalize slowly, and it rarely decides a game by itself. Most strong games contain a few.',
+          'An inaccuracy is a move that is playable but not the best. It gives up a small part of your advantage, or lets the opponent equalize slowly, and it rarely decides a game on its own. Most strong games contain several.',
         ],
       },
       {
-        h: 'Mistake',
+        h: 'What is a mistake in chess?',
         body: [
-          'A mistake is a move that clearly worsens your position, for example allowing a strong plan or a lost pawn, but does not lose the game on the spot. A mistake often hands the opponent the initiative.',
+          'A mistake is a move that clearly worsens your position, for example allowing a strong plan or losing a pawn, but does not lose the game on the spot. A mistake often hands the opponent the initiative.',
         ],
       },
       {
-        h: 'Blunder',
+        h: 'What is a miss in chess?',
+        body: [
+          'A miss is a label used by Chess.com. It marks a move where you failed to capitalize on your opponent\'s error: they slipped, a winning or much better continuation was available, and you played something that left the position equal or worse for you.',
+          'A miss is different from a mistake because the move itself may not look bad. What went wrong is the chance you did not take. Misses are common in over-the-board games, where you have to notice for yourself that your opponent has just erred. Lichess has no separate miss label, so the same move there shows up as an inaccuracy or mistake, or as nothing at all.',
+        ],
+      },
+      {
+        h: 'What is a blunder in chess?',
         body: [
           'A blunder is a serious error that swings the evaluation heavily, such as hanging a piece, missing a mate or walking into a tactic. Blunders are usually the moves that decide a game.',
         ],
       },
       {
-        h: 'Why context matters',
+        h: 'What are the other labels, such as brilliant and best?',
         body: [
-          'A move that looks like a blunder in a balanced position may barely matter if you were already completely winning, and the reverse is also true. Labels are a guide to where to look, not a final verdict. Always ask whether a human could realistically have found the better move, and why you chose the one you played.',
+          'Analysis tools also label good moves. Chess.com uses Best, Excellent and Good for strong moves, Great for a move that was critical to the outcome, and Brilliant for a good piece sacrifice that was not already obviously winning. The error labels above are only the downside half of the scale.',
         ],
       },
       {
-        h: 'Using the labels to improve',
+        h: 'Why does context matter?',
         body: [
-          'Count your blunders and mistakes across several games and sort them: tactical oversight, wrong plan, opening gap, or time pressure. The biggest group is what you should practice first. Reducing your blunders usually raises your results faster than learning new openings.',
-          'Kibitzz highlights the critical moments of each game and gives a player accuracy score from the Stockfish analysis, then explains in plain English what changed at those moments.',
+          'A move that looks like a blunder in a balanced position may barely matter if you were already completely winning, and the reverse is also true. Labels tell you where to look, not what to conclude. Always ask whether a human could realistically have found the better move, and why you played the one you did.',
+        ],
+      },
+      {
+        h: 'How do you use the labels to improve?',
+        body: [
+          'Count your blunders, mistakes and misses across several games and sort them: tactical oversight, wrong plan, opening gap or time pressure. The biggest group is what to practice first. Many players find that cutting blunders and converting misses raises results faster than learning new openings.',
+          'Kibitzz flags blunders, mistakes and brilliant moves from its Stockfish analysis, gives each player an accuracy score, and explains in plain English what changed at the critical moments of the game.',
         ],
       },
     ],

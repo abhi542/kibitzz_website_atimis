@@ -24,7 +24,7 @@ Kibitzz is built by ATIMIS (https://www.atimis.in/). Contact: contact@kibitzz.in
 - [What is chess OCR?](https://kibitzz.in/blog/what-is-chess-ocr): how software reads handwritten chess notation.
 - [How to analyze a chess game](https://kibitzz.in/blog/how-to-analyze-a-chess-game): a step-by-step review method.
 - [How to analyze tournament chess games](https://kibitzz.in/blog/how-to-analyze-tournament-chess-games): reviewing over-the-board games, for players and coaches.
-- [Blunders, mistakes and inaccuracies explained](https://kibitzz.in/blog/chess-blunders-mistakes-inaccuracies): what the engine labels mean.
+- [Chess blunders, mistakes, misses and inaccuracies explained](https://kibitzz.in/blog/chess-blunders-mistakes-inaccuracies): what the move labels in game analysis mean and how Chess.com and Lichess assign them.
 - [Get it on Google Play](https://play.google.com/store/apps/details?id=com.chesslens.chess_scan): Android download.
 - [Privacy Policy](https://kibitzz.in/privacy): how data is collected, used and protected.
 - [Terms of Service](https://kibitzz.in/terms): terms for using the service.
