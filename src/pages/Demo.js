@@ -97,10 +97,10 @@ export default function Demo() {
         <section style={{maxWidth:980,margin:'0 auto',padding:'64px 32px 110px'}}>
           <div style={{background:'#0E1A24',color:'#fff',borderRadius:24,padding:'38px 32px'}}>
             <h2 style={{fontFamily:heading,fontWeight:800,fontSize:28,letterSpacing:'-.02em',marginBottom:10}}>Want to know how it works under the hood?</h2>
-            <p style={{fontSize:18,color:'#AEBCC4',lineHeight:1.6,marginBottom:22}}>Read our guides on chess scoresheet OCR, converting scoresheets to PGN, and analyzing your games.</p>
+            <p style={{fontSize:18,color:'#AEBCC4',lineHeight:1.6,marginBottom:22}}>Read our articles on chess scoresheet OCR, converting scoresheets to PGN, and analyzing your games.</p>
             <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
-              <Link to="/learn/what-is-chess-ocr" style={{background:'#fff',color:'#0E1A24',fontFamily:heading,fontWeight:700,fontSize:16,padding:'13px 24px',borderRadius:12,textDecoration:'none'}}>What is chess OCR?</Link>
-              <Link to="/learn" style={{border:'1px solid rgba(255,255,255,.3)',color:'#fff',fontFamily:heading,fontWeight:700,fontSize:16,padding:'13px 24px',borderRadius:12,textDecoration:'none'}}>All guides</Link>
+              <Link to="/blog/what-is-chess-ocr" style={{background:'#fff',color:'#0E1A24',fontFamily:heading,fontWeight:700,fontSize:16,padding:'13px 24px',borderRadius:12,textDecoration:'none'}}>What is chess OCR?</Link>
+              <Link to="/blog" style={{border:'1px solid rgba(255,255,255,.3)',color:'#fff',fontFamily:heading,fontWeight:700,fontSize:16,padding:'13px 24px',borderRadius:12,textDecoration:'none'}}>Browse the blog</Link>
             </div>
           </div>
         </section>

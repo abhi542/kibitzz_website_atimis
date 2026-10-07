@@ -1,14 +1,15 @@
-// Content for the /learn section. Each article is rendered by
-// src/pages/LearnArticle.js and prerendered by scripts/prerender.js.
+// Content for the /blog section. Each post is rendered by
+// src/pages/BlogPost.js and prerendered by scripts/prerender.js.
+// Add a post by adding an entry below with its own `published` date (YYYY-MM-DD).
+// Set `updated` only when you materially revise a post.
 //
 // Body items: a string is a paragraph; an array is a bullet list;
 // { ol: [...] } is a numbered list; { code: "..." } is a code block.
 
-export const LEARN_UPDATED = '2026-10-06';
-
-export const articles = [
+const posts = [
   {
     slug: 'how-to-digitize-a-chess-scoresheet',
+    published: '2026-10-06',
     title: 'How to digitize a chess scoresheet',
     metaTitle: 'How to Digitize a Chess Scoresheet (3 Ways) — Kibitzz',
     description:
@@ -75,6 +76,7 @@ export const articles = [
 
   {
     slug: 'how-to-convert-chess-scoresheet-to-pgn',
+    published: '2026-10-06',
     title: 'How to convert a chess scoresheet to PGN',
     metaTitle: 'How to Convert a Chess Scoresheet to PGN — Kibitzz',
     description:
@@ -135,6 +137,7 @@ export const articles = [
 
   {
     slug: 'what-is-chess-ocr',
+    published: '2026-10-06',
     title: 'What is chess OCR?',
     metaTitle: 'What Is Chess OCR? Reading Handwritten Scoresheets — Kibitzz',
     description:
@@ -193,6 +196,7 @@ export const articles = [
 
   {
     slug: 'how-to-analyze-a-chess-game',
+    published: '2026-10-06',
     title: 'How to analyze a chess game',
     metaTitle: 'How to Analyze a Chess Game to Improve Faster — Kibitzz',
     description:
@@ -252,6 +256,7 @@ export const articles = [
 
   {
     slug: 'how-to-analyze-tournament-chess-games',
+    published: '2026-10-06',
     title: 'How to analyze tournament chess games',
     metaTitle: 'How to Analyze Tournament Chess Games — Kibitzz',
     description:
@@ -305,6 +310,7 @@ export const articles = [
 
   {
     slug: 'chess-blunders-mistakes-inaccuracies',
+    published: '2026-10-06',
     title: 'Chess blunders, mistakes and inaccuracies explained',
     metaTitle: 'Blunder vs Mistake vs Inaccuracy in Chess Explained — Kibitzz',
     description:
@@ -356,4 +362,24 @@ export const articles = [
   },
 ];
 
+// Newest first. Array.sort is stable, so posts with the same date keep their order above.
+export const articles = [...posts].sort((a, b) => (a.published < b.published ? 1 : a.published > b.published ? -1 : 0));
+
 export const getArticle = (slug) => articles.find((a) => a.slug === slug);
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+// '2026-10-06' -> '6 October 2026'. Done by hand (no Intl) so server and browser always agree.
+export const formatDate = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return d + ' ' + MONTHS[m - 1] + ' ' + y;
+};
+
+const textOf = (item) =>
+  typeof item === 'string' ? item : Array.isArray(item) ? item.join(' ') : item.ol ? item.ol.join(' ') : item.code || '';
+
+// Reading time at about 200 words per minute, never less than 1.
+export const readingMinutes = (a) => {
+  const words = [a.answer, ...a.sections.flatMap((s) => [s.h, ...s.body.map(textOf)])].join(' ').split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+};

@@ -18,13 +18,13 @@ Kibitzz is built by ATIMIS (https://www.atimis.in/). Contact: contact@kibitzz.in
 
 - [Home — what Kibitzz does, how it works, features, FAQ](https://kibitzz.in/): overview of the app and answers to common questions.
 - [Demo](https://kibitzz.in/demo): the full flow from photographing a scoresheet to the coached, engine-checked game.
-- [Learn: guides hub](https://kibitzz.in/learn): guides on chess scoresheets, PGN and game analysis.
-- [How to digitize a chess scoresheet](https://kibitzz.in/learn/how-to-digitize-a-chess-scoresheet): typing it in versus using a scanner app.
-- [How to convert a chess scoresheet to PGN](https://kibitzz.in/learn/how-to-convert-chess-scoresheet-to-pgn): what PGN is, its format, and common mistakes.
-- [What is chess OCR?](https://kibitzz.in/learn/what-is-chess-ocr): how software reads handwritten chess notation.
-- [How to analyze a chess game](https://kibitzz.in/learn/how-to-analyze-a-chess-game): a step-by-step review method.
-- [How to analyze tournament chess games](https://kibitzz.in/learn/how-to-analyze-tournament-chess-games): reviewing over-the-board games, for players and coaches.
-- [Blunders, mistakes and inaccuracies explained](https://kibitzz.in/learn/chess-blunders-mistakes-inaccuracies): what the engine labels mean.
+- [Blog](https://kibitzz.in/blog): articles on chess scoresheets, PGN and game analysis.
+- [How to digitize a chess scoresheet](https://kibitzz.in/blog/how-to-digitize-a-chess-scoresheet): typing it in versus using a scanner app.
+- [How to convert a chess scoresheet to PGN](https://kibitzz.in/blog/how-to-convert-chess-scoresheet-to-pgn): what PGN is, its format, and common mistakes.
+- [What is chess OCR?](https://kibitzz.in/blog/what-is-chess-ocr): how software reads handwritten chess notation.
+- [How to analyze a chess game](https://kibitzz.in/blog/how-to-analyze-a-chess-game): a step-by-step review method.
+- [How to analyze tournament chess games](https://kibitzz.in/blog/how-to-analyze-tournament-chess-games): reviewing over-the-board games, for players and coaches.
+- [Blunders, mistakes and inaccuracies explained](https://kibitzz.in/blog/chess-blunders-mistakes-inaccuracies): what the engine labels mean.
 - [Get it on Google Play](https://play.google.com/store/apps/details?id=com.chesslens.chess_scan): Android download.
 - [Privacy Policy](https://kibitzz.in/privacy): how data is collected, used and protected.
 - [Terms of Service](https://kibitzz.in/terms): terms for using the service.

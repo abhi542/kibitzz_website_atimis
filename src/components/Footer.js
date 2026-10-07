@@ -16,7 +16,7 @@ export default function Footer() {
           <a href="/#features" className="footer-link" style={{color:'#8A99A1'}}>Features</a>
           {/* <a href="/#pricing" className="footer-link" style={{color:'#8A99A1'}}>Pricing</a> */}
           <Link to="/demo" className="footer-link" style={{color:'#8A99A1'}}>Demo</Link>
-          <Link to="/learn" className="footer-link" style={{color:'#8A99A1'}}>Learn</Link>
+          <Link to="/blog" className="footer-link" style={{color:'#8A99A1'}}>Blog</Link>
           <a href="/#support" className="footer-link" style={{color:'#8A99A1'}}>Support</a>
           <a href="mailto:contact@kibitzz.in" className="footer-link" style={{color:'#8A99A1'}}>Contact</a>
         </div>

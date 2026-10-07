@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { getArticle, LEARN_UPDATED } from '../content/learn';
+import { getArticle, formatDate, readingMinutes } from '../content/blog';
 
 const heading = "'Plus Jakarta Sans',sans-serif";
 const p = {fontSize:18,color:'#33454F',lineHeight:1.75,marginBottom:18};
@@ -27,7 +27,7 @@ function Block({ item }) {
   return null;
 }
 
-export default function LearnArticle() {
+export default function BlogPost() {
   const { slug } = useParams();
   const article = getArticle(slug);
 
@@ -39,8 +39,8 @@ export default function LearnArticle() {
         <Navbar />
         <main style={{maxWidth:720,margin:'0 auto',padding:'96px 32px 140px',textAlign:'center'}}>
           <meta name="robots" content="noindex" />
-          <h1 style={{fontFamily:heading,fontWeight:800,fontSize:40,marginBottom:16}}>Guide not found</h1>
-          <p style={p}>We could not find that guide. <Link to="/learn" style={{color:'#1B7274',fontWeight:600}}>Browse all guides</Link>.</p>
+          <h1 style={{fontFamily:heading,fontWeight:800,fontSize:40,marginBottom:16}}>Article not found</h1>
+          <p style={p}>We could not find that article. <Link to="/blog" style={{color:'#1B7274',fontWeight:600}}>Browse the blog</Link>.</p>
         </main>
         <Footer />
       </>
@@ -55,13 +55,19 @@ export default function LearnArticle() {
       <main style={{maxWidth:780,margin:'0 auto',padding:'48px 32px 110px'}}>
         <nav aria-label="Breadcrumb" style={{fontSize:15,color:'#6B7B84',marginBottom:26}}>
           <Link to="/" style={{color:'#6B7B84'}}>Home</Link>{' / '}
-          <Link to="/learn" style={{color:'#6B7B84'}}>Learn</Link>{' / '}
+          <Link to="/blog" style={{color:'#6B7B84'}}>Blog</Link>{' / '}
           <span>{article.title}</span>
         </nav>
 
         <article>
           <h1 style={{fontFamily:heading,fontWeight:800,fontSize:'clamp(32px,5vw,48px)',letterSpacing:'-.03em',lineHeight:1.1,marginBottom:14}}>{article.title}</h1>
-          <p style={{fontSize:15,color:'#6B7B84',marginBottom:28}}>By the Kibitzz team &middot; Updated <time dateTime={LEARN_UPDATED}>6 October 2026</time></p>
+          <p style={{fontSize:15,color:'#6B7B84',marginBottom:28}}>
+            By the Kibitzz team &middot; <time dateTime={article.published}>{formatDate(article.published)}</time>
+            {article.updated && article.updated !== article.published && (
+              <> &middot; Updated <time dateTime={article.updated}>{formatDate(article.updated)}</time></>
+            )}
+            {' \u00b7 '}{readingMinutes(article)} min read
+          </p>
 
           <div style={{background:'#E8F5F5',border:'1px solid #C9E4E4',borderRadius:16,padding:'20px 24px',marginBottom:36}}>
             <div style={{fontFamily:heading,fontWeight:700,fontSize:13,letterSpacing:'.14em',textTransform:'uppercase',color:'#1B7274',marginBottom:8}}>The short answer</div>
@@ -89,9 +95,9 @@ export default function LearnArticle() {
         <ul style={{listStyle:'none',padding:0,display:'grid',gap:14}}>
           {related.map((r) => (
             <li key={r.slug}>
-              <Link to={'/learn/' + r.slug} style={{display:'block',background:'#fff',border:'1px solid #E4E8E7',borderRadius:16,padding:'18px 22px',textDecoration:'none'}}>
+              <Link to={'/blog/' + r.slug} style={{display:'block',background:'#fff',border:'1px solid #E4E8E7',borderRadius:16,padding:'18px 22px',textDecoration:'none'}}>
                 <div style={{fontFamily:heading,fontWeight:700,fontSize:19,color:'#0E1A24',marginBottom:4}}>{r.title}</div>
-                <div style={{fontSize:15,color:'#6B7B84',lineHeight:1.5}}>{r.blurb}</div>
+                <div style={{fontSize:15,color:'#6B7B84',lineHeight:1.5}}>{formatDate(r.published)} &middot; {r.blurb}</div>
               </Link>
             </li>
           ))}

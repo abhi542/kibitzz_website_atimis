@@ -5,8 +5,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import ComingSoon from './pages/ComingSoon';
 import Demo from './pages/Demo';
-import Learn from './pages/Learn';
-import LearnArticle from './pages/LearnArticle';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 
 // Routes live in their own component so scripts/prerender.js can render them
 // inside a StaticRouter at build time.
@@ -18,8 +18,8 @@ export function AppRoutes() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/demo" element={<Demo />} />
-        <Route path="/learn" element={<Learn />} />
-        <Route path="/learn/:slug" element={<LearnArticle />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/coming-soon" element={<ComingSoon />} />
       </Routes>
     </div>

@@ -59,5 +59,4 @@
   .cta-dark{font-size:12px !important;padding:9px 14px !important}
 }
 
-.learn-card{transition:transform .2s,box-shadow .2s}
-.learn-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(14,26,36,.1) !important}
+.blog-row:hover .blog-row-title{color:#1B7274 !important}

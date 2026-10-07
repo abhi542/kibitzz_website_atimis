@@ -79,7 +79,7 @@ const { renderToString } = require('react-dom/server');
 const { StaticRouter } = require('react-router');
 const { AppRoutes } = require(path.join(SRC, 'App.js'));
 const { faqs } = require(path.join(SRC, 'components', 'FAQ.js'));
-const { articles, LEARN_UPDATED } = require(path.join(SRC, 'content', 'learn.js'));
+const { articles } = require(path.join(SRC, 'content', 'blog.js'));
 
 // ---------------------------------------------------------------------------
 // Per-route head data
@@ -110,7 +110,7 @@ const ROUTES = [
   },
 ];
 
-// Content pages: /demo, the /learn hub and one page per article in src/content/learn.js.
+// Content pages: /demo, the /blog index and one page per post in src/content/blog.js.
 const breadcrumbLd = (crumbs) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -133,16 +133,16 @@ ROUTES.push(
     jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Demo', path: '/demo' }])],
   },
   {
-    path: '/learn',
-    title: 'Learn — Chess Scoresheet, PGN and Game Analysis Guides | Kibitzz',
+    path: '/blog',
+    title: 'Blog — Chess Scoresheet, PGN and Game Analysis | Kibitzz',
     description:
-      'Practical guides on digitizing handwritten chess scoresheets, converting them to PGN, chess OCR and analyzing your games to improve.',
-    jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }])],
+      'Practical articles on digitizing handwritten chess scoresheets, converting them to PGN, chess OCR and analyzing your games to improve.',
+    jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }])],
   }
 );
 
 articles.forEach((a) => {
-  const articlePath = '/learn/' + a.slug;
+  const articlePath = '/blog/' + a.slug;
   ROUTES.push({
     path: articlePath,
     title: a.metaTitle,
@@ -153,8 +153,8 @@ articles.forEach((a) => {
         '@type': 'Article',
         headline: a.title,
         description: a.description,
-        datePublished: LEARN_UPDATED,
-        dateModified: LEARN_UPDATED,
+        datePublished: a.published,
+        dateModified: a.updated || a.published,
         author: { '@type': 'Organization', name: 'Kibitzz', url: SITE + '/' },
         publisher,
         image: SITE + '/og-image.png',
@@ -162,7 +162,7 @@ articles.forEach((a) => {
       },
       breadcrumbLd([
         { name: 'Home', path: '/' },
-        { name: 'Learn', path: '/learn' },
+        { name: 'Blog', path: '/blog' },
         { name: a.title, path: articlePath },
       ]),
     ],
