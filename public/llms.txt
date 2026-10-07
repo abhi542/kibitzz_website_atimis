@@ -18,7 +18,7 @@ Kibitzz is built by ATIMIS (https://www.atimis.in/). Contact: contact@kibitzz.in
 
 - [Home — what Kibitzz does, how it works, features, FAQ](https://kibitzz.in/): overview of the app and answers to common questions.
 - [Demo](https://kibitzz.in/demo): the full flow from photographing a scoresheet to the coached, engine-checked game.
-- [Blog](https://kibitzz.in/blog): articles on chess scoresheets, PGN and game analysis.
+- [Blog](https://kibitzz.in/blog): guides, ideas and updates for chess players and coaches, including articles on chess scoresheets, PGN and game analysis.
 - [How to digitize a chess scoresheet](https://kibitzz.in/blog/how-to-digitize-a-chess-scoresheet): typing it in versus using a scanner app.
 - [How to convert a chess scoresheet to PGN](https://kibitzz.in/blog/how-to-convert-chess-scoresheet-to-pgn): what PGN is, its format, and common mistakes.
 - [What is chess OCR?](https://kibitzz.in/blog/what-is-chess-ocr): how software reads handwritten chess notation.

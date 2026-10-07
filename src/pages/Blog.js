@@ -13,12 +13,12 @@ export default function Blog() {
     <>
       <Navbar />
       <main style={{maxWidth:780,margin:'0 auto',padding:'64px 32px 110px'}}>
-        <div style={{fontFamily:heading,fontWeight:700,fontSize:14,letterSpacing:'.16em',textTransform:'uppercase',color:'#1B7274',marginBottom:16}}>Blog</div>
+        <div style={{fontFamily:heading,fontWeight:700,fontSize:14,letterSpacing:'.16em',textTransform:'uppercase',color:'#1B7274',marginBottom:16}}>Scan &middot; Review &middot; Improve</div>
         <h1 style={{fontFamily:heading,fontWeight:800,fontSize:'clamp(34px,5vw,52px)',letterSpacing:'-.03em',lineHeight:1.08,marginBottom:18}}>
-          Chess scoresheets, PGN and game analysis
+          The Kibitzz Blog
         </h1>
         <p style={{fontSize:20,color:'#6B7B84',lineHeight:1.6,marginBottom:48}}>
-          Practical articles on turning handwritten scoresheets into digital games and learning from every game you play.
+          Guides, ideas and updates for chess players and coaches who want to learn from every game.
         </p>
 
         <ul style={{listStyle:'none',padding:0,margin:0}}>

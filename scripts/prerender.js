@@ -134,9 +134,9 @@ ROUTES.push(
   },
   {
     path: '/blog',
-    title: 'Blog — Chess Scoresheet, PGN and Game Analysis | Kibitzz',
+    title: 'Kibitzz Blog — Chess Guides, Analysis and Updates',
     description:
-      'Practical articles on digitizing handwritten chess scoresheets, converting them to PGN, chess OCR and analyzing your games to improve.',
+      'Guides, ideas and updates from Kibitzz for chess players and coaches: chess scoresheets, game analysis, improving your play and more.',
     jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }])],
   }
 );
