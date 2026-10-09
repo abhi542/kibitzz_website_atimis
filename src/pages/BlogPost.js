@@ -90,6 +90,7 @@ export default function BlogPost() {
           ))}
         </article>
 
+        {/* CTA box (Demo + Google Play buttons) hidden until the /demo page is ready. Restore by removing this comment wrapper.
         <div style={{marginTop:56,background:'#0E1A24',color:'#fff',borderRadius:24,padding:'34px 30px'}}>
           <div style={{fontFamily:heading,fontWeight:800,fontSize:24,letterSpacing:'-.02em',marginBottom:8}}>Scan a scoresheet with Kibitzz</div>
           <p style={{fontSize:17,color:'#AEBCC4',lineHeight:1.6,marginBottom:22}}>Photograph a handwritten chess scoresheet and get a playable, engine-checked game with a plain-English summary of the critical moments.</p>
@@ -98,6 +99,7 @@ export default function BlogPost() {
             <a href="https://play.google.com/store/apps/details?id=com.chesslens.chess_scan&hl=en" target="_blank" rel="noopener noreferrer" style={{border:'1px solid rgba(255,255,255,.3)',color:'#fff',fontFamily:heading,fontWeight:700,fontSize:16,padding:'13px 24px',borderRadius:12,textDecoration:'none'}}>Get it on Google Play</a>
           </div>
         </div>
+        */}
 
         <h2 style={{fontFamily:heading,fontWeight:800,fontSize:26,letterSpacing:'-.02em',marginTop:56,marginBottom:20}}>Keep reading</h2>
         <ul style={{listStyle:'none',padding:0,display:'grid',gap:14}}>

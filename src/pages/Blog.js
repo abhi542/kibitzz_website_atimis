@@ -37,6 +37,7 @@ export default function Blog() {
           ))}
         </ul>
 
+        {/* Demo CTA hidden until the /demo page is ready. Restore by removing this comment wrapper.
         <div style={{marginTop:56,background:'#0E1A24',color:'#fff',borderRadius:24,padding:'36px 32px',display:'flex',flexWrap:'wrap',gap:20,alignItems:'center',justifyContent:'space-between'}}>
           <div style={{maxWidth:520}}>
             <div style={{fontFamily:heading,fontWeight:800,fontSize:24,letterSpacing:'-.02em',marginBottom:8}}>See it on a real game</div>
@@ -44,6 +45,7 @@ export default function Blog() {
           </div>
           <Link to="/demo" style={{background:'#fff',color:'#0E1A24',fontFamily:heading,fontWeight:700,fontSize:16,padding:'14px 26px',borderRadius:12,textDecoration:'none'}}>View the demo</Link>
         </div>
+        */}
       </main>
       <Footer />
     </>
