@@ -58,3 +58,5 @@
   .hero-phone video{width:220px !important}
   .cta-dark{font-size:12px !important;padding:9px 14px !important}
 }
+
+.blog-row:hover .blog-row-title{color:#1B7274 !important}
