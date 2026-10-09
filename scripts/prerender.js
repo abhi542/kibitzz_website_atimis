@@ -130,7 +130,9 @@ ROUTES.push(
     title: 'Kibitzz Demo — See a Chess Scoresheet Scan and Analysis',
     description:
       'See how Kibitzz turns a photo of a handwritten chess scoresheet into a validated, playable game with Stockfish analysis and a plain-English explanation of the critical moments.',
-    jsonLd: [breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Demo', path: '/demo' }])],
+    // Hidden from search results (and the sitemap and llms.txt) until the demo page is ready.
+    // To publish it: delete the next line, add /demo back to public/sitemap.xml and public/llms.txt.
+    noindex: true,
   },
   {
     path: '/blog',
