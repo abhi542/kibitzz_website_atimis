@@ -110,7 +110,7 @@ const ROUTES = [
   },
 ];
 
-// Content pages: /demo, the /blog index and one page per post in src/content/blog.js.
+// Content pages: the /blog index and one page per post in src/content/blog.js.
 const breadcrumbLd = (crumbs) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -125,6 +125,9 @@ const breadcrumbLd = (crumbs) => ({
 const publisher = { '@type': 'Organization', name: 'Kibitzz', url: SITE + '/', logo: { '@type': 'ImageObject', url: SITE + '/logo512.png' } };
 
 ROUTES.push(
+  // /demo is disabled until the demo page is ready. To re-enable: uncomment this block, the route in
+  // src/App.js, the Footer link, and add /demo back to public/sitemap.xml and public/llms.txt.
+  /*
   {
     path: '/demo',
     title: 'Kibitzz Demo — See a Chess Scoresheet Scan and Analysis',
@@ -134,6 +137,7 @@ ROUTES.push(
     // To publish it: delete the next line, add /demo back to public/sitemap.xml and public/llms.txt.
     noindex: true,
   },
+  */
   {
     path: '/blog',
     title: 'Kibitzz Blog — Chess Guides, Analysis and Updates',
