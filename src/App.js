@@ -3,7 +3,6 @@ import './App.css';
 import Home from './pages/Home';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
-import ComingSoon from './pages/ComingSoon';
 // import Demo from './pages/Demo'; // Demo page disabled until it is ready (also re-enable the route below and in scripts/prerender.js)
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -20,7 +19,6 @@ export function AppRoutes() {
         {/* <Route path="/demo" element={<Demo />} /> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/coming-soon" element={<ComingSoon />} />
       </Routes>
     </div>
   );
