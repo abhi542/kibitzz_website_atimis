@@ -1,0 +1,16 @@
+.bb-board{flex:1;min-width:0;display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;border-radius:6px;overflow:hidden;container-type:inline-size}
+.bb-sq{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1}
+.bb-sq.light{background:#eef1e6}
+.bb-sq.dark{background:#5f9a9b}
+.bb-sq.light.last{background:#f3e38a}
+.bb-sq.dark.last{background:#c9b84f}
+.bb-sq-rank,.bb-sq-file{position:absolute;font-size:10px;font-weight:600;line-height:1}
+.bb-sq-rank{top:3px;left:3px}
+.bb-sq-file{bottom:3px;right:3px}
+.bb-sq.light .bb-sq-rank,.bb-sq.light .bb-sq-file{color:#4a7f80}
+.bb-sq.dark .bb-sq-rank,.bb-sq.dark .bb-sq-file{color:#eef1e6}
+.bb-piece{font-size:10.5cqw;line-height:1;user-select:none;font-family:"Segoe UI Symbol","Noto Sans Symbols2","Apple Symbols","DejaVu Sans",sans-serif}
+.bb-piece.w{color:#fff;-webkit-text-stroke:1px #1b2528;paint-order:stroke fill}
+.bb-piece.b{color:#15191b}
+.bb-sq.light.spot{background:#8fe3b4}
+.bb-sq.dark.spot{background:#3fb37f}
