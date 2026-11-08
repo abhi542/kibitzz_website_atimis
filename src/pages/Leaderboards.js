@@ -73,11 +73,14 @@ function useReducedMotion() {
   return reduced;
 }
 
-// Counts from 0 to the target each time the slide mounts
+// Counts from 0 to the target each time the slide mounts.
+// The API can send null (e.g. a game whose analysis hasn't finished), so show a dash then.
 function CountUp({ value, decimals = 0, delay = 0 }) {
   const reduced = useReducedMotion();
-  const [shown, setShown] = useState(reduced ? value : 0);
+  const valid = Number.isFinite(value);
+  const [shown, setShown] = useState(reduced && valid ? value : 0);
   useEffect(() => {
+    if (!valid) return undefined;
     if (reduced) { setShown(value); return undefined; }
     let raf;
     let start;
@@ -92,7 +95,8 @@ function CountUp({ value, decimals = 0, delay = 0 }) {
     // Animation frames pause in background tabs; make sure the real number lands
     const done = setTimeout(() => setShown(value), delay + duration + 150);
     return () => { cancelAnimationFrame(raf); clearTimeout(done); };
-  }, [value, delay, reduced]);
+  }, [value, delay, reduced, valid]);
+  if (!valid) return <>–</>;
   return <>{shown.toFixed(decimals)}</>;
 }
 
