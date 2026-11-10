@@ -15,10 +15,12 @@ const REFRESH_MS = 60000;
 
 const AWARDS = {
   best_game: { title: 'Best Game', short: 'Best game', blurb: 'Highest game quality: accuracy, weighted towards the critical moments.' },
-  brilliant_move: { title: 'Brilliant Move', short: 'Brilliant', blurb: 'Sacrifices that were the only good move, ranked by how much they swung the game.' },
+  brilliant_move: { title: 'Brilliant Move', short: 'Brilliant', blurb: 'Sacrifices that were the only good move. Most brilliant moves first; on a tie, the biggest single swing.' },
   comeback: { title: 'Best Comeback', short: 'Comeback', blurb: 'Wins from the worst position, by the lowest winning chance the player held.' },
   clean_game: { title: 'Clean Games', short: 'Clean', blurb: 'Games with no mistakes or blunders after the opening.' },
 };
+// Awards with a board per group (Open, U10, U12…); the others are one board for everyone
+const GROUPED = ['best_game', 'brilliant_move'];
 
 async function getJson(path, options) {
   const res = await fetch(PUBLIC_API + path, options);
@@ -184,21 +186,62 @@ function GameReplay({ slug, gameId }) {
   );
 }
 
+// Every brilliant move on a row that the server sent a board for; the row's own (best) move first
+function brilliantChoices(entry) {
+  const own = entry.positions
+    ? [{ game_id: entry.game_id, ply: entry.ply, san: entry.san, swing: entry.value, round_no: entry.round_no, positions: entry.positions }]
+    : [];
+  const others = (entry.brilliant_moves || [])
+    .filter((m) => m.positions && !(m.game_id === entry.game_id && m.ply === entry.ply));
+  return [...own, ...others];
+}
+
+const canShowMove = (e) => !!e.positions || !!e.replay;
+
 function BrilliantGame({ slug, entry, onInteract }) {
-  const { loading, data, error } = useJson(`/api/public/t/${slug}/games/${entry.game_id}`);
   const reduced = useReducedMotion();
-  if (loading) return <div className="lbx-game">Loading the position…</div>;
-  if (error) return <div className="lbx-game">{error.message}</div>;
+  const choices = brilliantChoices(entry);
+  const [index, setIndex] = useState(0);
+  // Rows published before positions were sent fall back to the row's move, rebuilt from the game
+  const move = choices[index] || { game_id: entry.game_id, ply: entry.ply, swing: entry.value, positions: null };
+  // The full game adds the opponent's reply and the Lichess link. It is public only when both
+  // players agreed; for the row's own game the row says so, for another game just try.
+  const fetchGame = move.game_id !== entry.game_id || entry.replay;
+  const game = useJson(fetchGame ? `/api/public/t/${slug}/games/${move.game_id}` : null);
+  if (!move.positions && game.loading) return <div className="lbx-game">Loading the position…</div>;
+  if (!move.positions && !game.data) return <div className="lbx-game">{game.error?.message || 'This position can\'t be shown.'}</div>;
   return (
-    <Suspense fallback={<div className="lbx-game">Loading the position…</div>}>
-      <BrilliantMoment key={`${entry.game_id}-${entry.ply}`} game={data} entry={entry} moveLabel={moveLabel} onInteract={onInteract} reduced={reduced} />
-    </Suspense>
+    <>
+      {choices.length > 1 && (
+        <div className="lbx-moment-picker" role="group" aria-label="Brilliant moves">
+          {choices.map((m, i) => (
+            <button type="button" key={`${m.game_id}-${m.ply}`} aria-pressed={i === index} className={i === index ? 'on' : ''}
+                    onClick={() => { setIndex(i); onInteract(); }}>
+              R{m.round_no} · {moveLabel(m.ply, m.san)} <small>+{m.swing}%</small>
+            </button>
+          ))}
+        </div>
+      )}
+      <Suspense fallback={<div className="lbx-game">Loading the position…</div>}>
+        <BrilliantMoment
+          key={`${move.game_id}-${move.ply}`}
+          positions={move.positions}
+          ply={move.ply}
+          swing={move.swing}
+          game={game.data}
+          entry={entry}
+          moveLabel={moveLabel}
+          onInteract={onInteract}
+          reduced={reduced}
+        />
+      </Suspense>
+    </>
   );
 }
 
 const MEDALS = { 1: 'gold', 2: 'silver', 3: 'bronze' };
 
-function Podium({ award, top, moves, onPick }) {
+function Podium({ award, top, moves, onPick, canPick }) {
   // Second, first, third: the winner stands in the middle
   const order = [top[1], top[0], top[2]].filter(Boolean);
   return (
@@ -207,7 +250,7 @@ function Podium({ award, top, moves, onPick }) {
         const place = top.indexOf(e) + 1;
         return (
           <button type="button" key={lineKey(award, e)} className={`lbx-step lbx-step-${place}`}
-                  onClick={() => e.replay && onPick(e)} disabled={!e.replay}
+                  onClick={() => canPick(e) && onPick(e)} disabled={!canPick(e)}
                   style={{ '--d': `${(3 - place) * 140}ms`, gridColumn: { 1: 2, 2: 1, 3: 3 }[place] }}>
             {place === 1 && <Trophy size={44} />}
             <span className={`lbx-avatar lbx-${MEDALS[place]}`}>{initials(e.display_name)}</span>
@@ -227,8 +270,10 @@ function Slide({ award, rows, slug, moves, groupPicker, onInteract }) {
   const meta = AWARDS[award];
   const ranked = award !== 'clean_game';
   const brilliant = award === 'brilliant_move';
+  // A brilliant move can be shown from its positions even when the game itself isn't public
+  const canPick = brilliant ? canShowMove : (e) => !!e.replay;
   // The top move that can be shown is on the board without a click
-  const moment = brilliant ? picked || rows.find((e) => e.replay) : null;
+  const moment = brilliant ? picked || rows.find(canShowMove) : null;
   const pick = (e) => {
     setPicked(e);
     onInteract();
@@ -253,7 +298,7 @@ function Slide({ award, rows, slug, moves, groupPicker, onInteract }) {
 
       {ranked && rows.length > 0 && (
         <>
-          <Podium award={award} top={rows.slice(0, 3)} moves={moves} onPick={pick} />
+          <Podium award={award} top={rows.slice(0, 3)} moves={moves} onPick={pick} canPick={canPick} />
           {rows.length > 3 && (
             <ol className="lbx-rows" start={4}>
               {rows.slice(3).map((e, i) => (
@@ -267,7 +312,7 @@ function Slide({ award, rows, slug, moves, groupPicker, onInteract }) {
                     </span>
                   </span>
                   <span className="lbx-rscore"><Score award={award} e={e} delay={600 + i * 90} /></span>
-                  {e.replay && <button type="button" className="lbx-view" onClick={() => pick(e)}>{brilliant ? 'See move' : 'Game'}</button>}
+                  {canPick(e) && <button type="button" className="lbx-view" onClick={() => pick(e)}>{brilliant ? 'See move' : 'Game'}</button>}
                 </li>
               ))}
             </ol>
@@ -290,12 +335,12 @@ function Slide({ award, rows, slug, moves, groupPicker, onInteract }) {
 
       {moment && (
         <div className="lbx-picked">
-          <BrilliantGame slug={slug} entry={moment} onInteract={onInteract} />
+          <BrilliantGame key={lineKey(award, moment)} slug={slug} entry={moment} onInteract={onInteract} />
         </div>
       )}
 
       {brilliant && rows.length > 0 && !moment && (
-        <p className="lbx-moment-private">The positions are shown once both players have agreed to make their game public.</p>
+        <p className="lbx-moment-private">The positions are shown once the player links their profile and agrees to be shown.</p>
       )}
 
       {picked && !brilliant && (
@@ -390,11 +435,14 @@ export function LeaderboardPage() {
 
   const content = board.data;
   const awards = useMemo(() => (content ? Object.keys(AWARDS).filter((a) => content.boards[a]) : []), [content]);
-  const groups = content ? content.groups.filter((g) => (content.boards.best_game?.[g.key] || []).length > 0) : [];
-  const groupKey = groups.some((g) => g.key === group) ? group : 'open';
+  // Best Game and Brilliant Move have a board per group (Open, U10…); the rest are one board
+  const groups = content
+    ? content.groups.filter((g) => GROUPED.some((a) => (content.boards[a]?.[g.key] || []).length > 0))
+    : [];
+  const groupKey = groups.some((g) => g.key === group) ? group : groups[0]?.key || 'open';
   const rowsFor = useCallback((a) => {
     if (!content) return [];
-    return (a === 'best_game' ? content.boards[a][groupKey] : content.boards[a].open) || [];
+    return (GROUPED.includes(a) ? content.boards[a][groupKey] : content.boards[a].open) || [];
   }, [content, groupKey]);
 
   const active = awards.length ? awards[index % awards.length] : null;
@@ -424,7 +472,7 @@ export function LeaderboardPage() {
     if (!prev.data || !content || !active) return {};
     const before = {};
     const prevBoard = prev.data.boards[active];
-    const prevRows = prevBoard ? (active === 'best_game' ? prevBoard[groupKey] : prevBoard.open) || [] : [];
+    const prevRows = prevBoard ? (GROUPED.includes(active) ? prevBoard[groupKey] : prevBoard.open) || [] : [];
     prevRows.forEach((e) => { before[lineKey(active, e)] = e.rank; });
     const out = {};
     rowsFor(active).forEach((e) => {
@@ -541,7 +589,7 @@ export function LeaderboardPage() {
                   rows={rowsFor(active)}
                   moves={moves}
                   onInteract={() => setPlaying(false)}
-                  groupPicker={active === 'best_game' && groups.length > 1 && (
+                  groupPicker={GROUPED.includes(active) && groups.length > 1 && (
                     <select className="lbx-group" value={groupKey} onChange={(e) => { setGroup(e.target.value); setPlaying(false); }} aria-label="Group">
                       {groups.map((g) => <option key={g.key} value={g.key}>{g.label}</option>)}
                     </select>

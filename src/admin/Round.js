@@ -406,7 +406,7 @@ function BoardTables({ content }) {
           <div className="bb-label" style={{ marginTop: 6 }}>{labels[g] || g}</div>
           <div className="bb-table-wrap">
             <table className="bb-table">
-              <thead><tr><th>#</th><th>Player</th><th>Rating</th><th>Rd</th><th>Colour</th><th>Result</th><th>Value</th><th>Moves</th><th>Move</th><th>Replay</th></tr></thead>
+              <thead><tr><th>#</th><th>Player</th><th>Rating</th><th>Rd</th><th>Colour</th><th>Result</th><th>Value</th><th>Moves</th><th>Move</th>{award === 'brilliant_move' && <th>Brilliant</th>}<th>Replay</th></tr></thead>
               <tbody>
                 {rows.map((e, i) => (
                   <tr key={`${e.game_id}-${e.ply || ''}-${i}`} className={e.tie ? 'bb-flag' : ''}>
@@ -419,6 +419,7 @@ function BoardTables({ content }) {
                     <td>{e.value ?? '—'}</td>
                     <td>{e.counted_moves}</td>
                     <td>{e.san ? `${e.san} (ply ${e.ply})` : ''}</td>
+                    {award === 'brilliant_move' && <td>{e.brilliant_count}</td>}
                     <td>{e.replay ? '✓' : ''}</td>
                   </tr>
                 ))}

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api, downloadFile } from './api';
+import AutoApprove from './AutoApprove';
 import CategorySwitches from './CategorySwitches';
+import Prizes from './Prizes';
 import { Action, Badge, Counts, ErrorText, ImportFlow, Loading, useLoad, Warnings, fmtDate } from './ui';
 
 const STATUS_MOVES = { draft: ['live'], live: ['finished', 'draft'], finished: ['live'] };
-const TABS = ['Overview', 'Players', 'Claims', 'Rounds', 'Audit'];
+const TABS = ['Overview', 'Players', 'Claims', 'Rounds', 'Prizes', 'Audit'];
 
 export default function Tournament({ me }) {
   const { tid } = useParams();
@@ -25,14 +27,16 @@ export default function Tournament({ me }) {
             {TABS.map((name) => (
               <button key={name} type="button" className={`bb-tab${tab === name ? ' active' : ''}`} onClick={() => setTab(name)}>
                 {name}
-                {name === 'Claims' && tour.counts.claims_pending > 0 ? ` (${tour.counts.claims_pending})` : ''}
+                {name === 'Claims' && tour.counts.claims_pending + (tour.counts.claims_disputed || 0) > 0
+                  ? ` (${tour.counts.claims_pending + (tour.counts.claims_disputed || 0)})` : ''}
               </button>
             ))}
           </div>
           {tab === 'Overview' && <Overview tour={tour} reload={t.reload} me={me} />}
           {tab === 'Players' && <Players tid={tid} />}
-          {tab === 'Claims' && <Claims tid={tid} onChange={t.reload} />}
+          {tab === 'Claims' && <Claims tid={tid} onChange={t.reload} initialStatus={tour.counts.claims_disputed > 0 ? 'disputed' : 'pending'} />}
           {tab === 'Rounds' && <Rounds tid={tid} />}
+          {tab === 'Prizes' && <Prizes tour={tour} />}
           {tab === 'Audit' && <Audit tid={tid} />}
         </>
       )}
@@ -40,8 +44,8 @@ export default function Tournament({ me }) {
   );
 }
 
-// The on/off switches have their own card; this leaves the rules
-const withoutSwitches = ({ awards, group_types, ...rules } = {}) => rules;
+// The on/off switches and shortlist sizes have their own cards; this leaves the rules
+const withoutSwitches = ({ awards, group_types, prize_shortlist, ...rules } = {}) => rules;
 
 function Overview({ tour, reload }) {
   const [awardText, setAwardText] = useState(JSON.stringify(withoutSwitches(tour.award_config || {}), null, 2));
@@ -143,6 +147,8 @@ function Overview({ tour, reload }) {
         onDone={reload}
       />
 
+      <AutoApprove tour={tour} />
+
       <CategorySwitches tour={tour} />
 
       <div className="bb-card">
@@ -164,27 +170,53 @@ function Overview({ tour, reload }) {
   );
 }
 
+// Turning it on for an under-18 needs a note on how the parent consented
+function showOnLeaderboard(tid, p) {
+  const show = !p.show_on_leaderboard;
+  let reason = null;
+  if (show && p.minor) {
+    reason = window.prompt(`${p.display_name} is under 18. How did the parent give consent? (e.g. signed form at the desk)`);
+    if (reason === null) return Promise.resolve(null);
+  } else if (!window.confirm(`${show ? 'Show' : 'Hide'} ${p.display_name} on the public leaderboard?`)) {
+    return Promise.resolve(null);
+  }
+  return api.post(`/api/admin/t/${tid}/players/${p.id}/show-on-leaderboard`, { show, reason });
+}
+
 function Players({ tid }) {
   const [q, setQ] = useState('');
+  const [only, setOnly] = useState('');
   const state = useLoad(() => api.get(`/api/admin/t/${tid}/players`), [tid]);
   return (
     <div className="bb-card">
       <div className="bb-row">
-        <input type="text" placeholder="Filter by name, FIDE ID or start no" value={q} onChange={(e) => setQ(e.target.value)} style={{ width: 300 }} />
+        <input type="text" placeholder="Search by name, FIDE ID or start no" value={q} onChange={(e) => setQ(e.target.value)} style={{ width: 300 }} />
+        <select value={only} onChange={(e) => setOnly(e.target.value)} aria-label="Show">
+          <option value="">All players</option>
+          <option value="linked">Linked</option>
+          <option value="unlinked">Not linked</option>
+          <option value="hidden">Linked, hidden from leaderboard</option>
+        </select>
       </div>
       <Loading state={state}>
         {(players) => {
           const needle = q.trim().toLowerCase();
-          const rows = needle
-            ? players.filter((p) => `${p.start_no} ${p.display_name} ${p.fide_id || ''} ${p.club || ''}`.toLowerCase().includes(needle))
-            : players;
+          const keep = {
+            '': () => true,
+            linked: (p) => p.linked,
+            unlinked: (p) => !p.linked,
+            hidden: (p) => p.linked && !p.show_on_leaderboard,
+          }[only];
+          const rows = players.filter(
+            (p) => keep(p) && (!needle || `${p.start_no} ${p.display_name} ${p.fide_id || ''} ${p.club || ''}`.toLowerCase().includes(needle)),
+          );
           return (
             <>
               <p className="bb-muted">{rows.length} of {players.length} players · {players.filter((p) => p.claimed_by).length} claimed</p>
               <div className="bb-table-wrap">
                 <table className="bb-table">
                   <thead>
-                    <tr><th>No</th><th>Title</th><th>Name</th><th>FIDE ID</th><th>Rating</th><th>Cat.</th><th>Groups</th><th>Claimed</th><th>Public</th></tr>
+                    <tr><th>No</th><th>Title</th><th>Name</th><th>FIDE ID</th><th>Rating</th><th>Cat.</th><th>Groups</th><th>Linked</th><th>Show on leaderboard</th></tr>
                   </thead>
                   <tbody>
                     {rows.map((p) => (
@@ -196,8 +228,20 @@ function Players({ tid }) {
                         <td>{p.rating || '—'}</td>
                         <td>{p.category}</td>
                         <td className="bb-muted">{(p.groups || []).join(', ')}</td>
-                        <td>{p.claimed_by ? <Badge value="approved" /> : ''}</td>
-                        <td>{p.public_consent ? '✓' : ''}</td>
+                        <td>{p.linked ? <Badge value="approved" /> : <span className="bb-muted">no</span>}</td>
+                        <td>
+                          {p.linked ? (
+                            <div className="bb-row" style={{ margin: 0 }}>
+                              <span>{p.show_on_leaderboard ? '✓ shown' : 'hidden'}</span>
+                              <Action small kind={p.show_on_leaderboard ? 'ghost' : 'primary'} run={() => showOnLeaderboard(tid, p)} onDone={(r) => r && state.reload()}>
+                                {p.show_on_leaderboard ? 'Hide' : 'Show'}
+                              </Action>
+                            </div>
+                          ) : (
+                            <span className="bb-muted" title="Shown as a locked 'Unclaimed player' row until someone links this player">locked row</span>
+                          )}
+                          {p.minor && <div className="bb-hint">under 18</div>}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -211,8 +255,8 @@ function Players({ tid }) {
   );
 }
 
-function Claims({ tid, onChange }) {
-  const [status, setStatus] = useState('pending');
+function Claims({ tid, onChange, initialStatus = 'pending' }) {
+  const [status, setStatus] = useState(initialStatus);
   const [selected, setSelected] = useState([]);
   const [bulkResult, setBulkResult] = useState(null);
   const state = useLoad(() => api.get(`/api/admin/t/${tid}/claims${status ? `?status=${status}` : ''}`), [tid, status]);
@@ -233,6 +277,7 @@ function Claims({ tid, onChange }) {
       <div className="bb-row">
         <select value={status} onChange={(e) => { setStatus(e.target.value); setSelected([]); }}>
           <option value="pending">Pending</option>
+          <option value="disputed">Disputed</option>
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
           <option value="revoked">Revoked</option>
@@ -296,6 +341,14 @@ function Claims({ tid, onChange }) {
                       </td>
                       <td>
                         <Badge value={c.status} />
+                        {c.auto_approved && <div className="bb-muted">auto-approved</div>}
+                        {c.status === 'disputed' && (
+                          <div className="bb-muted" style={{ maxWidth: 240 }}>
+                            {c.current_holder
+                              ? <>Says someone else took this player. Linked now to <code title="user id">{c.current_holder.user_id.slice(-8)}</code> ({c.current_holder.relationship}{c.current_holder.auto_approved ? ', auto-approved' : ''}) since {fmtDate(c.current_holder.approved_at)}</>
+                              : 'The player is no longer linked to anyone'}
+                          </div>
+                        )}
                         {c.reason && <div className="bb-muted">{c.reason}</div>}
                       </td>
                       <td className="bb-muted">{fmtDate(c.created_at)}</td>
@@ -305,6 +358,21 @@ function Claims({ tid, onChange }) {
                             <>
                               <Action small run={() => api.post(`/api/admin/claims/${c.id}/approve`)} onDone={refresh}>Approve</Action>
                               <Action small kind="danger" run={withReason(`/api/admin/claims/${c.id}/reject`, 'Reject')} onDone={(r) => r && refresh()}>Reject</Action>
+                            </>
+                          )}
+                          {c.status === 'disputed' && (
+                            <>
+                              <Action
+                                small
+                                confirm={c.current_holder ? 'Hand the player over? The current link is revoked and its uploads are flagged.' : 'Approve this link?'}
+                                run={() => api.post(`/api/admin/claims/${c.id}/approve`)}
+                                onDone={refresh}
+                              >
+                                {c.current_holder ? 'Hand over' : 'Approve'}
+                              </Action>
+                              <Action small kind="danger" run={withReason(`/api/admin/claims/${c.id}/reject`, 'Reject dispute (current holder keeps the player)')} onDone={(r) => r && refresh()}>
+                                Keep holder
+                              </Action>
                             </>
                           )}
                           {c.status === 'approved' && (

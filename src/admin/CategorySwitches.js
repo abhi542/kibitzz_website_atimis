@@ -3,7 +3,7 @@ import { api } from './api';
 import { ErrorText } from './ui';
 
 const AWARDS = [['best_game', 'Best game'], ['brilliant_move', 'Brilliant move'], ['comeback', 'Comeback'], ['clean_game', 'Clean game']];
-const GROUPS = [['category', 'Age categories (U11, F13…)'], ['women', 'Women'], ['rating_band', 'Rating bands']];
+const GROUPS = [['category', 'Age categories (U10, U12, F13…)'], ['women', 'Women'], ['rating_band', 'Rating bands']];
 
 export default function CategorySwitches({ tour }) {
   const [state, setState] = useState({
@@ -51,9 +51,12 @@ export default function CategorySwitches({ tour }) {
           {list('awards', AWARDS)}
         </div>
         <div>
-          <h4 className="bb-switch-head">Best game groups</h4>
-          {list('group_types', GROUPS, state.awards.best_game === false)}
-          <p className="bb-muted" style={{ marginTop: 8 }}>The open list is always kept while Best game is on.</p>
+          <h4 className="bb-switch-head">Best game and Brilliant move boards</h4>
+          {list('group_types', GROUPS, state.awards.best_game === false && state.awards.brilliant_move === false)}
+          <p className="bb-muted" style={{ marginTop: 8 }}>
+            Open (players without an age category, seniors included) is always kept. Turning age categories off hides those
+            players from these two awards, as they are not in Open. Comeback and Clean game are one board for everyone.
+          </p>
         </div>
       </div>
       <ErrorText error={error} />

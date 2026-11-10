@@ -212,6 +212,10 @@
 .lbx-moment-text{margin:0;font-size:15px;line-height:1.5;color:#fff}
 .lbx-moment a{color:#7FD1C8;font-weight:700;font-size:14px}
 .lbx-moment-private{margin-top:16px;color:#9FB3B8;font-size:14px}
+.lbx-moment-picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.lbx-moment-picker button{border:1px solid #1F3440;background:#12222C;color:#CDE3E1;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.lbx-moment-picker button small{color:#7FE3B0;font-weight:700;margin-left:4px}
+.lbx-moment-picker button.on{border-color:#E9B44C;background:#1A2F3A;color:#fff}
 @media(max-width:700px){.lbx-moment-body{grid-template-columns:minmax(0,1fr)}}
 .lb-tournament .lbx-trophy{filter:none}
 @keyframes lbx-progress{from{width:0}to{width:100%}}
