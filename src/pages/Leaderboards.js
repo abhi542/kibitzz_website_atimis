@@ -179,9 +179,6 @@ function GameReplay({ slug, gameId }) {
         Round {data.round_no}, board {data.board_no} · {data.white.display_name} vs {data.black.display_name} · {data.result}
       </div>
       <p className="lbx-moves">{moves}</p>
-      <a href={'https://lichess.org/analysis/pgn/' + encodeURIComponent(moves)} target="_blank" rel="noreferrer">
-        Play through on Lichess &rarr;
-      </a>
     </div>
   );
 }
@@ -204,7 +201,7 @@ function BrilliantGame({ slug, entry, onInteract }) {
   const [index, setIndex] = useState(0);
   // Rows published before positions were sent fall back to the row's move, rebuilt from the game
   const move = choices[index] || { game_id: entry.game_id, ply: entry.ply, swing: entry.value, positions: null };
-  // The full game adds the opponent's reply and the Lichess link. It is public only when both
+  // The full game adds the opponent's reply and the players' names. It is public only when both
   // players agreed; for the row's own game the row says so, for another game just try.
   const fetchGame = move.game_id !== entry.game_id || entry.replay;
   const game = useJson(fetchGame ? `/api/public/t/${slug}/games/${move.game_id}` : null);

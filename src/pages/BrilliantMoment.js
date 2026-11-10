@@ -83,10 +83,6 @@ function Moment({ positions, swing, entry, game, moveLabel, onInteract, reduced 
     },
   ];
   const shown = steps[step].board || steps[1].board;
-  const pgn = game?.pgn?.split(/\n\n/).pop().trim();
-  const analyse = pgn
-    ? { href: `https://lichess.org/analysis/pgn/${encodeURIComponent(pgn)}`, text: 'Analyse the full game on Lichess' }
-    : { href: `https://lichess.org/analysis/standard/${brilliant.fen_before.replace(/ /g, '_')}`, text: 'Analyse this position on Lichess' };
 
   return (
     <div className="lbx-moment">
@@ -116,7 +112,6 @@ function Moment({ positions, swing, entry, game, moveLabel, onInteract, reduced 
             ))}
           </div>
           <p className="lbx-moment-text" aria-live="polite">{steps[step].text}</p>
-          <a href={analyse.href} target="_blank" rel="noreferrer">{analyse.text} &rarr;</a>
         </div>
       </div>
     </div>
