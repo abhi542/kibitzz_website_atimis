@@ -453,6 +453,17 @@ function Rounds({ tid }) {
                   </div>
                   <div className="bb-row" style={{ margin: 0 }}>
                     <Badge value={r.status} />
+                    {r.status !== 'paired' && (
+                      <Action
+                        small
+                        kind={r.uploads_open ? 'ghost' : 'primary'}
+                        confirm={r.uploads_open ? `Close uploads for round ${r.round_no}?` : `Reopen uploads for round ${r.round_no}?`}
+                        run={() => api.post(`/api/admin/t/${tid}/rounds/${r.round_no}/uploads`, { open: !r.uploads_open })}
+                        onDone={state.reload}
+                      >
+                        {r.uploads_open ? 'Uploads open · Close' : 'Uploads closed · Reopen'}
+                      </Action>
+                    )}
                     <Link className="bb-btn bb-btn-ghost bb-btn-sm" to={`/admin/t/${tid}/round/${r.round_no}`}>Open</Link>
                   </div>
                 </div>

@@ -46,6 +46,37 @@ export default function Round() {
   );
 }
 
+// Players can upload once results are in; the organiser closes and reopens this by hand
+export function UploadsToggle({ base, round, reload }) {
+  const before = round.status === 'paired';
+  const open = round.uploads_open;
+  return (
+    <div className="bb-card">
+      <h3>Player uploads</h3>
+      <div className="bb-row">
+        {before ? (
+          <span className="bb-muted">Uploads open when this round's results are imported.</span>
+        ) : (
+          <>
+            <span className={`bb-badge ${open ? 'bb-good' : 'bb-bad'}`}>{open ? 'Open' : 'Closed'}</span>
+            <Action
+              kind={open ? 'danger' : 'primary'}
+              confirm={open ? 'Close uploads for this round? Players will see "Uploads closed".' : 'Reopen uploads for this round?'}
+              run={() => api.post(`${base}/uploads`, { open: !open })}
+              onDone={reload}
+            >
+              {open ? 'Close uploads' : 'Reopen uploads'}
+            </Action>
+          </>
+        )}
+      </div>
+      <p className="bb-muted">
+        Games uploaded after the round is published don't reach the public leaderboard until you start review and publish again.
+      </p>
+    </div>
+  );
+}
+
 function Status({ tid, n, round, base, reload }) {
   return (
     <>
@@ -74,6 +105,7 @@ function Status({ tid, n, round, base, reload }) {
           {round.boards} boards · submissions: {Object.entries(round.submissions).map(([k, v]) => `${v} ${k}`).join(', ') || 'none'} · updated {fmtDate(round.updated_at)}
         </p>
       </div>
+      <UploadsToggle base={base} round={round} reload={reload} />
       <ImportFlow
         title={round.status === 'paired' ? 'Import results' : 'Re-import results (correction)'}
         hint="chess-results → this round's results → Excel export. Importing results opens uploads for players. A changed result on an approved game creates a new game version and sends the round back to review."
