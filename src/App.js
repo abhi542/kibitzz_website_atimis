@@ -30,7 +30,6 @@ export function AppRoutes() {
         {/* <Route path="/demo" element={<Demo />} /> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/coming-soon" element={<ComingSoon />} />
         {LEADERBOARDS_ENABLED && <Route path="/leaderboards" element={<LeaderboardIndex />} />}
         {LEADERBOARDS_ENABLED && <Route path="/leaderboards/:slug" element={<LeaderboardPage />} />}
         {AdminApp && (
