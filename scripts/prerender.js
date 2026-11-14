@@ -101,13 +101,6 @@ const ROUTES = [
     title: 'Terms of Service — Kibitzz',
     description: 'The terms that apply when you use the Kibitzz chess scoresheet scanner app and website.',
   },
-  {
-    // Prerendered so the client can hydrate it, but kept out of search results.
-    path: '/coming-soon',
-    title: 'Coming soon — Kibitzz',
-    description: 'The Kibitzz iOS app is coming soon. Join the waitlist to be notified at launch.',
-    noindex: true,
-  },
 ];
 
 // Content pages: the /blog index and one page per post in src/content/blog.js.
