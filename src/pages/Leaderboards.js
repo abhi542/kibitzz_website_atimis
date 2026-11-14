@@ -30,8 +30,6 @@ const AWARDS = {
   brilliant_move: { title: 'Brilliant Move', short: 'Brilliant', blurb: 'Sacrifices that were the only good move. Players are ranked by how many they found.' },
   comeback: { title: 'Best Comeback', short: 'Comeback', blurb: 'Wins from the worst position, by the lowest winning chance the player held.' },
 };
-// Awards with a board per group (Open, U10, U12…); the others are one board for everyone
-const GROUPED = ['best_game', 'brilliant_move'];
 
 async function getJson(path, options) {
   const res = await fetch(PUBLIC_API + path, options);
@@ -213,18 +211,6 @@ function GameReplay({ slug, gameId }) {
     </div>
   );
 }
-
-// Every brilliant move on a row that the server sent a board for; the row's own (best) move first
-function brilliantChoices(entry) {
-  const own = entry.positions
-    ? [{ game_id: entry.game_id, ply: entry.ply, san: entry.san, swing: entry.value, round_no: entry.round_no, positions: entry.positions }]
-    : [];
-  const others = (entry.brilliant_moves || [])
-    .filter((m) => m.positions && !(m.game_id === entry.game_id && m.ply === entry.ply));
-  return [...own, ...others];
-}
-
-const canShowMove = (e) => !!e.positions || !!e.replay;
 
 // A public game is fetched for the full replay; otherwise the position
 // snapshots that come with the leaderboard line are enough to show the moment.
@@ -414,7 +400,7 @@ function Slide({ award, rows, slug, moves, categories = [], prevBoard, onInterac
 
       {rows.length > 0 && (
         <>
-          <Podium award={award} top={rows.slice(0, 3)} moves={moves} onPick={pick} canPick={canPick} />
+          <Podium award={award} top={rows.slice(0, 3)} moves={moves} onPick={pick} />
           {rows.length > 3 && (
             <ol className="lbx-rows" start={4}>
               {rows.slice(3, tv ? 3 + TV_ROWS : undefined).map((e, i) => (
