@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import appLogo from '../assets/kibitzz_logo.png';
+
+// Same switch as the /leaderboards routes in App.js, so the tab never points at a missing page
+const LEADERBOARDS_ENABLED = process.env.NODE_ENV === 'development' || !!process.env.REACT_APP_API_URL;
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const onTournaments = pathname.startsWith('/leaderboards');
 
   return (
     <header style={{position:'sticky',top:0,zIndex:50,background:'rgba(238,241,240,.82)',backdropFilter:'blur(14px)',borderBottom:'1px solid #E4E8E7'}}>
@@ -22,6 +27,13 @@ export default function Navbar() {
             <a href="/#how" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>How it works</a>
             <a href="/#features" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Features</a>
             <a href="/#built-for" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Who it's for</a>
+            {LEADERBOARDS_ENABLED && (
+              <Link to="/leaderboards" className="nav-link" onClick={() => setMenuOpen(false)}
+                    aria-current={onTournaments ? 'page' : undefined}
+                    style={{color:onTournaments ? '#0E1A24' : '#33454F',fontWeight:onTournaments ? 700 : 500,fontSize:16}}>
+                Tournaments
+              </Link>
+            )}
             {/* <a href="/#pricing" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Pricing</a> */}
             <Link to="/blog" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Blog</Link>
             <a href="/#support" className="nav-link" style={{color:'#33454F',fontWeight:500,fontSize:16}}>Support</a>

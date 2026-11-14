@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import appLogo from '../assets/kibitzz_logo.png';
 
+// Same switch as the /leaderboards routes in App.js
+const LEADERBOARDS_ENABLED = process.env.NODE_ENV === 'development' || !!process.env.REACT_APP_API_URL;
+
 export default function Footer() {
   return (
     <footer style={{background:'#0B141A',color:'#8A99A1',borderTop:'1px solid rgba(255,255,255,.06)'}}>
@@ -16,6 +19,7 @@ export default function Footer() {
           <a href="/#features" className="footer-link" style={{color:'#8A99A1'}}>Features</a>
           {/* <a href="/#pricing" className="footer-link" style={{color:'#8A99A1'}}>Pricing</a> */}
           {/* <Link to="/demo" className="footer-link" style={{color:'#8A99A1'}}>Demo</Link> */}
+          {LEADERBOARDS_ENABLED && <Link to="/leaderboards" className="footer-link" style={{color:'#8A99A1'}}>Tournaments</Link>}
           <Link to="/blog" className="footer-link" style={{color:'#8A99A1'}}>Blog</Link>
           <a href="/#support" className="footer-link" style={{color:'#8A99A1'}}>Support</a>
           <a href="mailto:contact@kibitzz.in" className="footer-link" style={{color:'#8A99A1'}}>Contact</a>
