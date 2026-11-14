@@ -51,7 +51,7 @@ export default function Demo() {
             </p>
             <div style={{display:'flex',gap:14,flexWrap:'wrap',justifyContent:'inherit'}}>
               <a href="https://play.google.com/store/apps/details?id=com.chesslens.chess_scan&hl=en" target="_blank" rel="noopener noreferrer" style={{background:'#0E1A24',color:'#fff',fontFamily:heading,fontWeight:700,fontSize:16,padding:'15px 26px',borderRadius:12,textDecoration:'none'}}>Get it on Google Play</a>
-              <Link to="/coming-soon" style={{border:'1px solid #C9D3D6',color:'#0E1A24',fontFamily:heading,fontWeight:700,fontSize:16,padding:'15px 26px',borderRadius:12,textDecoration:'none'}}>iOS: join the waitlist</Link>
+              <a href="https://apps.apple.com/in/app/kibitzz-scan-chess-scoresheet/id6817059397" target="_blank" rel="noopener noreferrer" style={{border:'1px solid #C9D3D6',color:'#0E1A24',fontFamily:heading,fontWeight:700,fontSize:16,padding:'15px 26px',borderRadius:12,textDecoration:'none'}}>Download on the App Store</a>
             </div>
           </div>
           <div style={{display:'flex',justifyContent:'center'}}>

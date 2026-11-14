@@ -1,9 +1,9 @@
 // Smart link for the QR code: https://kibitzz.in/get (rewritten here by vercel.json).
 // Android goes straight to the Play Store; everyone else (iOS, desktop) lands on
-// the "notify me" email waitlist page.
+// the App Store listing.
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.chesslens.chess_scan';
-const NOTIFY_PATH = '/coming-soon';
+const APP_STORE_URL = 'https://apps.apple.com/in/app/kibitzz-scan-chess-scoresheet/id6817059397';
 
 function sanitizeSource(value) {
   const clean = String(value || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
@@ -21,7 +21,7 @@ module.exports = function handler(req, res) {
     const referrer = encodeURIComponent('utm_source=' + source + '&utm_medium=qr');
     location = PLAY_STORE_URL + '&referrer=' + referrer;
   } else {
-    location = NOTIFY_PATH;
+    location = APP_STORE_URL;
   }
 
   // The answer depends on the device, so no shared cache may store it.
