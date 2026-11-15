@@ -33,7 +33,7 @@ export default function Round() {
             <p className="bb-muted">Round {n} has no pairings yet. Import them from the tournament's Rounds tab.</p>
           ) : (
             <>
-              {tab === TABS[0] && <Status tid={tid} n={n} round={round} base={base} reload={rounds.reload} />}
+              {tab === TABS[0] && <Status tid={tid} n={n} round={round} base={base} reload={rounds.reload} sections={tour.data?.sections} />}
               {tab === 'Boards' && <Boards base={base} />}
               {tab === 'Submissions' && <Submissions base={base} />}
               {tab === 'Analyses' && <Analyses tid={tid} base={base} />}
@@ -77,7 +77,7 @@ export function UploadsToggle({ base, round, reload }) {
   );
 }
 
-function Status({ tid, n, round, base, reload }) {
+function Status({ tid, n, round, base, reload, sections }) {
   return (
     <>
       <div className="bb-card">
@@ -108,8 +108,11 @@ function Status({ tid, n, round, base, reload }) {
       <UploadsToggle base={base} round={round} reload={reload} />
       <ImportFlow
         title={round.status === 'paired' ? 'Import results' : 'Re-import results (correction)'}
-        hint="chess-results → this round's results → Excel export. Importing results opens uploads for players. A changed result on an approved game creates a new game version and sends the round back to review."
+        hint={`${sections?.length ? 'Reads this round from every chess-results section.' : "chess-results → this round's results → Excel export."} Importing results opens uploads for players. A changed result on an approved game creates a new game version and sends the round back to review.`}
         previewUpload={(file) => api.upload(`${base}/results/preview`, file)}
+        fileUpload={!sections?.length}
+        fetchLabel={`Fetch round ${n} results from chess-results`}
+        fetchPreview={sections?.length ? () => api.post(`${base}/results/preview-chess-results`) : undefined}
         renderPreview={(p) => <RoundFilePreview p={p} />}
         confirm={(p) => api.post(`${base}/results`, { preview_id: p.preview_id })}
         confirmLabel="Import results"
@@ -120,6 +123,9 @@ function Status({ tid, n, round, base, reload }) {
           title="Re-import pairings"
           hint="Only while the round is still paired."
           previewUpload={(file) => api.upload(`/api/admin/t/${tid}/rounds/${n}/pairings/preview`, file)}
+          fileUpload={!sections?.length}
+          fetchLabel={`Fetch round ${n} pairings again`}
+          fetchPreview={sections?.length ? () => api.post(`/api/admin/t/${tid}/rounds/${n}/pairings/preview-chess-results`) : undefined}
           renderPreview={(p) => <RoundFilePreview p={p} />}
           confirm={(p) => api.post(`/api/admin/t/${tid}/rounds/${n}/pairings`, { preview_id: p.preview_id })}
           confirmLabel="Import pairings"
@@ -142,7 +148,7 @@ function Boards({ base }) {
               <tbody>
                 {boards.map((b) => (
                   <tr key={b.id}>
-                    <td>{b.board_no}</td>
+                    <td>{b.board_label || b.board_no}</td>
                     <td>{b.white_name}</td>
                     <td>{b.black_name || '—'}</td>
                     <td>{b.result_raw ?? b.result ?? '—'}</td>
