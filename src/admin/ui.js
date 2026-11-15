@@ -111,19 +111,20 @@ export function Warnings({ items, title = 'Warnings', tone = 'warn' }) {
 }
 
 // Excel import in two steps: upload for a preview, then confirm with the preview id.
-export function ImportFlow({ title, hint, previewUpload, renderPreview, confirm, confirmLabel = 'Confirm import', onDone, extraValid = true }) {
+export function ImportFlow({ title, hint, previewUpload, renderPreview, confirm, confirmLabel = 'Confirm import', onDone, extraValid = true,
+  fetchPreview, fetchLabel = 'Fetch from chess-results', fetchValid = true, beforeFetch, fileUpload = true }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
 
-  const doPreview = async () => {
+  const doPreview = async (fromLinks) => {
     setBusy(true);
     setError(null);
     setResult(null);
     try {
-      setPreview(await previewUpload(file));
+      setPreview(await (fromLinks ? fetchPreview() : previewUpload(file)));
     } catch (e) {
       setError(e);
       setPreview(null);
@@ -142,10 +143,21 @@ export function ImportFlow({ title, hint, previewUpload, renderPreview, confirm,
     <div className="bb-card">
       <h3>{title}</h3>
       {hint && <p className="bb-muted">{hint}</p>}
-      {!preview && (
+      {!preview && fetchPreview && (
+        <>
+          {beforeFetch}
+          <div className="bb-row">
+            <button type="button" className="bb-btn bb-btn-primary" disabled={!fetchValid || busy} onClick={() => doPreview(true)}>
+              {busy ? 'Reading chess-results…' : fetchLabel}
+            </button>
+            {fileUpload && <span className="bb-muted">or upload the Excel file:</span>}
+          </div>
+        </>
+      )}
+      {!preview && fileUpload && (
         <div className="bb-row">
           <input type="file" accept=".xlsx,.xls" onChange={(e) => setFile(e.target.files[0] || null)} />
-          <button type="button" className="bb-btn bb-btn-primary" disabled={!file || busy} onClick={doPreview}>
+          <button type="button" className={`bb-btn ${fetchPreview ? 'bb-btn-ghost' : 'bb-btn-primary'}`} disabled={!file || busy} onClick={() => doPreview(false)}>
             {busy ? 'Reading…' : 'Upload and preview'}
           </button>
         </div>

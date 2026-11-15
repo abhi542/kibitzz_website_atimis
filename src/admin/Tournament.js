@@ -5,6 +5,7 @@ import AutoApprove from './AutoApprove';
 import CategorySwitches from './CategorySwitches';
 import Prizes from './Prizes';
 import { Action, Badge, Counts, ErrorText, ImportFlow, Loading, useLoad, Warnings, fmtDate } from './ui';
+import { LinksInput, SectionsSummary, parseLinks } from './Tournaments';
 
 const STATUS_MOVES = { draft: ['live'], live: ['finished', 'draft'], finished: ['live'] };
 const TABS = ['Overview', 'Players', 'Claims', 'Rounds', 'Prizes', 'Audit'];
@@ -35,7 +36,7 @@ export default function Tournament({ me }) {
           {tab === 'Overview' && <Overview tour={tour} reload={t.reload} me={me} />}
           {tab === 'Players' && <Players tid={tid} />}
           {tab === 'Claims' && <Claims tid={tid} onChange={t.reload} initialStatus={tour.counts.claims_disputed > 0 ? 'disputed' : 'pending'} />}
-          {tab === 'Rounds' && <Rounds tid={tid} />}
+          {tab === 'Rounds' && <Rounds tid={tid} sections={tour.sections} />}
           {tab === 'Prizes' && <Prizes tour={tour} />}
           {tab === 'Audit' && <Audit tid={tid} />}
         </>
@@ -48,6 +49,7 @@ export default function Tournament({ me }) {
 const withoutSwitches = ({ awards, group_types, prize_shortlist, ...rules } = {}) => rules;
 
 function Overview({ tour, reload }) {
+  const [links, setLinks] = useState((tour.sections || []).map((x) => x.url).join(', '));
   const [awardText, setAwardText] = useState(JSON.stringify(withoutSwitches(tour.award_config || {}), null, 2));
   const [awardError, setAwardError] = useState(null);
 
@@ -108,10 +110,19 @@ function Overview({ tour, reload }) {
 
       <ImportFlow
         title="Re-import player list"
-        hint="Upload an updated chess-results list. Players with claims or games are never deleted."
+        hint={tour.sections?.length
+          ? 'Re-read the player lists from the saved chess-results links (edit the links to add or remove a section). Players with claims or games are never deleted.'
+          : 'Upload an updated chess-results list. Players with claims or games are never deleted.'}
         previewUpload={(file) => api.upload(`/api/admin/t/${tour.id}/players/preview`, file)}
+        fileUpload={!tour.sections?.length}
+        // Also lets a tournament made from an Excel list switch to chess-results links
+        fetchPreview={() => api.post(`/api/admin/t/${tour.id}/players/preview-chess-results`,
+          parseLinks(links).length ? { sections: parseLinks(links) } : {})}
+        fetchValid={parseLinks(links).length > 0 || !!tour.sections?.length}
+        beforeFetch={<LinksInput value={links} onChange={setLinks} />}
         renderPreview={(p) => (
           <>
+            <SectionsSummary sections={p.sections} />
             <Counts counts={p.counts} />
             <Warnings items={p.warnings} />
             <Counts
@@ -208,7 +219,7 @@ function Players({ tid }) {
             hidden: (p) => p.linked && !p.show_on_leaderboard,
           }[only];
           const rows = players.filter(
-            (p) => keep(p) && (!needle || `${p.start_no} ${p.display_name} ${p.fide_id || ''} ${p.club || ''}`.toLowerCase().includes(needle)),
+            (p) => keep(p) && (!needle || `${p.start_no} ${p.section_no ?? ''} ${p.display_name} ${p.fide_id || ''} ${p.club || ''}`.toLowerCase().includes(needle)),
           );
           return (
             <>
@@ -216,12 +227,13 @@ function Players({ tid }) {
               <div className="bb-table-wrap">
                 <table className="bb-table">
                   <thead>
-                    <tr><th>No</th><th>Title</th><th>Name</th><th>FIDE ID</th><th>Rating</th><th>Cat.</th><th>Groups</th><th>Linked</th><th>Show on leaderboard</th></tr>
+                    <tr><th>No</th><th>Section</th><th>Title</th><th>Name</th><th>FIDE ID</th><th>Rating</th><th>Cat.</th><th>Groups</th><th>Linked</th><th>Show on leaderboard</th></tr>
                   </thead>
                   <tbody>
                     {rows.map((p) => (
                       <tr key={p.id}>
                         <td>{p.start_no}</td>
+                        <td>{p.section ? `${p.section} #${p.section_no}` : '—'}</td>
                         <td>{p.title}</td>
                         <td>{p.display_name}</td>
                         <td>{p.fide_id}</td>
@@ -392,6 +404,10 @@ function Claims({ tid, onChange, initialStatus = 'pending' }) {
   );
 }
 
+// "U16 · Board 5" for boards from chess-results sections, otherwise the board number
+export const boardLabel = (b) =>
+  b.board_label || (b.section && b.section_board_no ? `${b.section === 'OPEN' ? 'Open' : b.section} · Board ${b.section_board_no}` : b.board_no);
+
 export function BoardsPreviewTable({ boards }) {
   return (
     <div className="bb-table-wrap bb-scroll">
@@ -402,7 +418,7 @@ export function BoardsPreviewTable({ boards }) {
         <tbody>
           {boards.map((b) => (
             <tr key={b.board_no} className={b.kind === 'forfeit' || b.kind === 'bye' ? 'bb-flag' : ''}>
-              <td>{b.board_no}</td>
+              <td>{boardLabel(b)}</td>
               <td>#{b.white_no} {b.white_name}</td>
               <td>{b.black_no ? `#${b.black_no} ${b.black_name || ''}` : '—'}</td>
               <td>{b.result_raw ?? b.result ?? '—'}</td>
@@ -429,7 +445,7 @@ export function RoundFilePreview({ p }) {
   );
 }
 
-function Rounds({ tid }) {
+function Rounds({ tid, sections }) {
   const state = useLoad(() => api.get(`/api/admin/t/${tid}/rounds`), [tid]);
   const [n, setN] = useState('');
 
@@ -478,8 +494,13 @@ function Rounds({ tid }) {
             <ImportFlow
               key={roundNo}
               title={`Import round ${roundNo} pairings`}
-              hint="chess-results → Pairings for this round → Excel export. Uploads stay closed until results are imported."
+              hint={sections?.length
+                ? `Reads round ${roundNo} from all ${sections.length} chess-results sections. Uploads stay closed until results are imported.`
+                : 'chess-results → Pairings for this round → Excel export. Uploads stay closed until results are imported.'}
               previewUpload={(file) => api.upload(`/api/admin/t/${tid}/rounds/${roundNo}/pairings/preview`, file)}
+              fileUpload={!sections?.length}
+              fetchLabel={`Fetch round ${roundNo} from chess-results`}
+              fetchPreview={sections?.length ? () => api.post(`/api/admin/t/${tid}/rounds/${roundNo}/pairings/preview-chess-results`) : undefined}
               renderPreview={(p) => <RoundFilePreview p={p} />}
               confirm={(p) => api.post(`/api/admin/t/${tid}/rounds/${roundNo}/pairings`, { preview_id: p.preview_id })}
               confirmLabel="Import pairings"
