@@ -118,10 +118,12 @@ function Status({ tid, n, round, base, reload, sections }) {
         confirmLabel="Import results"
         onDone={reload}
       />
-      {round.status === 'paired' && (
+      {(round.status === 'paired' || (round.status === 'closed' && !Object.values(round.submissions || {}).some(Boolean))) && (
         <ImportFlow
           title="Re-import pairings"
-          hint="Only while the round is still paired."
+          hint={round.status === 'paired'
+            ? 'Only while the round is still paired.'
+            : 'No games uploaded yet, so corrected pairings can still replace the boards. Results are cleared: fetch the results again right after.'}
           previewUpload={(file) => api.upload(`/api/admin/t/${tid}/rounds/${n}/pairings/preview`, file)}
           fileUpload={!sections?.length}
           fetchLabel={`Fetch round ${n} pairings again`}
