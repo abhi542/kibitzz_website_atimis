@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api, downloadFile } from './api';
 import AutoApprove from './AutoApprove';
 import CategorySwitches from './CategorySwitches';
@@ -48,7 +48,8 @@ export default function Tournament({ me }) {
 // The on/off switches and shortlist sizes have their own cards; this leaves the rules
 const withoutSwitches = ({ awards, group_types, prize_shortlist, ...rules } = {}) => rules;
 
-function Overview({ tour, reload }) {
+function Overview({ tour, reload, me }) {
+  const navigate = useNavigate();
   const [links, setLinks] = useState((tour.sections || []).map((x) => x.url).join(', '));
   const [awardText, setAwardText] = useState(JSON.stringify(withoutSwitches(tour.award_config || {}), null, 2));
   const [awardError, setAwardError] = useState(null);
@@ -177,6 +178,23 @@ function Overview({ tour, reload }) {
         <Action run={saveAward} onDone={reload}>Save overrides</Action>
         <ErrorText error={awardError} />
       </div>
+
+      {me?.role === 'superadmin' && (
+        <div className="bb-card" style={{ borderColor: '#F4C7C3' }}>
+          <h3 style={{ color: '#B42318' }}>Danger zone</h3>
+          <p className="bb-muted" style={{ marginBottom: 12 }}>
+            Permanently delete <strong>{tour.name}</strong> and all associated players, claims, rounds, boards, submissions, official games, analyses, snapshots, and audit logs. This cannot be undone.
+          </p>
+          <Action
+            kind="danger"
+            confirm={`Are you sure you want to permanently delete "${tour.name}"?\n\nThis will permanently cascade and delete all players, rounds, games, submissions, and claims. This cannot be undone.`}
+            run={() => api.del(`/api/admin/t/${tour.id}`)}
+            onDone={() => navigate('/admin')}
+          >
+            Delete tournament
+          </Action>
+        </div>
+      )}
     </>
   );
 }
